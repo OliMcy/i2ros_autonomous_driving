@@ -8,7 +8,7 @@ Panels:
         - /Grid1/Offset1
         - /TF1/Frames1
         - /TF1/Tree1
-        - /PointCloud21
+        - /Map1
         - /Map1/Position1
         - /OccupancyGrid1
       Splitter Ratio: 0.5647059082984924
@@ -163,7 +163,7 @@ Visualization Manager:
     - Alpha: 0.699999988079071
       Class: rviz/Map
       Color Scheme: map
-      Draw Behind: false
+      Draw Behind: true
       Enabled: true
       Name: Map
       Topic: /projected_map
@@ -172,9 +172,9 @@ Visualization Manager:
       Value: true
     - Class: octomap_rviz_plugin/OccupancyGrid
       Enabled: true
-      Max. Height Display: inf
+      Max. Height Display: 3.4028234663852886e+38
       Max. Octree Depth: 16
-      Min. Height Display: -inf
+      Min. Height Display: -3.4028234663852886e+38
       Name: OccupancyGrid
       Octomap Topic: /realsense/octomap_full
       Queue Size: 1
@@ -210,7 +210,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 39.675270080566406
+      Distance: 207.2884521484375
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -218,17 +218,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 2.026881217956543
-        Y: -72.46530151367188
-        Z: 1.3422478437423706
+        X: 28.224037170410156
+        Y: -0.5654286742210388
+        Z: -7.463376045227051
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.3711470067501068
+      Pitch: 1.0911463499069214
       Target Frame: <Fixed Frame>
-      Yaw: 5.673770904541016
+      Yaw: 6.26877498626709
     Saved: ~
 Window Geometry:
   Displays:
