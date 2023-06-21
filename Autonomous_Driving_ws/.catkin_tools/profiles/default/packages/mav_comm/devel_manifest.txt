@@ -1,2 +1,0 @@
-mav_comm/mav_comm
-/home/einholz/I2ROS_G13/i2ros_g13_autonomous_driving/Autonomous_Driving_ws/devel/.private/mav_comm/cmake.lock /home/einholz/I2ROS_G13/i2ros_g13_autonomous_driving/Autonomous_Driving_ws/devel/./cmake.lock
