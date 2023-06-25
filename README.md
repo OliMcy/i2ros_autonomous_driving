@@ -1,4 +1,12 @@
-## Getting Started
+# Prerequisites
+ 
+Run following command to install required packages.
+
+```shell
+sudo apt install ros-noetic-octomap-rviz-plugins ros-noetic-octomap-server
+```
+
+# Getting Started
 
 
 1. Copy the src-folder to your repository and build it
