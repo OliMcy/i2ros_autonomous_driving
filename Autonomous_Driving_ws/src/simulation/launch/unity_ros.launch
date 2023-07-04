@@ -12,8 +12,8 @@
 
   <node pkg="simulation" type="unity_ros" name="unity_ros" >
   	<remap from="~OurCar/Sensors/IMU/pose" to="$(arg pose_topic)" />
-  <!-- <remap from="~OurCar/Sensors/IMU/twist" to="/true_twist" />
-    <remap from="~OurCar/Sensors/DepthCamera/image_raw" to="$(arg depth_image_topic)" />
+ 	<remap from="~OurCar/Sensors/IMU/twist" to="/true_twist" />
+ <!--<remap from="~OurCar/Sensors/DepthCamera/image_raw" to="$(arg depth_image_topic)" />
     <remap from="~OurCar/Sensors/DepthCamera/camera_info" to="$(arg depth_info_topic)" />
     <remap from="~OurCar/Sensors/RGBCameraLeft/image_raw" to="$(arg left_image_topic)" />
     <remap from="~OurCar/Sensors/RGBCameraLeft/camera_info" to="$(arg left_info_topic)" />
