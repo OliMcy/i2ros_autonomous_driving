@@ -6,9 +6,9 @@ Panels:
       Expanded:
         - /Global Options1
         - /Grid1/Offset1
+        - /TF1
         - /TF1/Frames1
         - /TF1/Tree1
-        - /Map1
         - /Map1/Position1
         - /OccupancyGrid1
       Splitter Ratio: 0.5647059082984924
@@ -69,6 +69,8 @@ Visualization Manager:
           Value: true
         OurCar/TrueState:
           Value: true
+        body:
+          Value: true
         camera:
           Value: true
         depth_camera:
@@ -78,13 +80,15 @@ Visualization Manager:
         world:
           Value: true
       Marker Alpha: 1
-      Marker Scale: 1
+      Marker Scale: 25
       Name: TF
       Show Arrows: false
       Show Axes: true
       Show Names: true
       Tree:
         world:
+          body:
+            {}
           true_body:
             OurCar/Sensors/DepthCamera:
               {}
@@ -172,7 +176,7 @@ Visualization Manager:
       Value: true
     - Class: octomap_rviz_plugin/OccupancyGrid
       Enabled: true
-      Max. Height Display: 3.4028234663852886e+38
+      Max. Height Display: 32
       Max. Octree Depth: 16
       Min. Height Display: -3.4028234663852886e+38
       Name: OccupancyGrid
@@ -210,7 +214,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 207.2884521484375
+      Distance: 252.6510009765625
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -218,9 +222,9 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 28.224037170410156
-        Y: -0.5654286742210388
-        Z: -7.463376045227051
+        X: 21.826990127563477
+        Y: -0.11233380436897278
+        Z: -4.132798671722412
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false

@@ -40,7 +40,7 @@
 
   <node name="w_to_unity" pkg="simulation" type="w_to_unity"/>
 
-  <node pkg="tf2_ros" type="static_transform_publisher"
+<!--  <node pkg="tf2_ros" type="static_transform_publisher"
         name="sim_true_body"      args="0 0 0 0 0 0 /OurCar/TrueState /true_body" />
 
   <node pkg="tf2_ros" type="static_transform_publisher"
@@ -54,7 +54,7 @@
 
   <node pkg="tf2_ros" type="static_transform_publisher"
         name="camera_to_body"      args="0 0 0 0 0 0 /true_body /camera" />
-
+-->
   <node pkg="tf2_ros" type="static_transform_publisher"
         name="depth_camera_to_body"      args="0 0 0 0 0 -1.5707963 /true_body /depth_camera" />
 
