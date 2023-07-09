@@ -1,0 +1,25 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/einholz/I2ROS_G13/i2ros_g13_autonomous_driving/Autonomous_Driving_ws/devel/include/**",
+        "/opt/ros/noetic/include/**",
+        "/home/einholz/I2ROS_G13/i2ros_g13_autonomous_driving/Autonomous_Driving_ws/src/detector_pkg/include/**",
+        "/home/einholz/I2ROS_G13/i2ros_g13_autonomous_driving/Autonomous_Driving_ws/src/utilities/fla_utils/include/**",
+        "/home/einholz/I2ROS_G13/i2ros_g13_autonomous_driving/Autonomous_Driving_ws/src/mav_comm/mav_msgs/include/**",
+        "/home/einholz/I2ROS_G13/i2ros_g13_autonomous_driving/Autonomous_Driving_ws/src/mav_comm/mav_planning_msgs/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}
