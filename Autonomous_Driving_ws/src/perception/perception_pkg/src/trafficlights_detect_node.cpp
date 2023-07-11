@@ -7,13 +7,9 @@
 #include <vector>
 
 int main(int argc, char **argv) {
-  // %Tag(INIT)%
   ros::init(argc, argv, "trafficlights_detector");
-  // %EndTag(INIT)%
 
-  // %Tag(NODEHANDLE)%
   ros::NodeHandle n;
-  // %EndTag(NODEHANDLE)%
 
   Detector detector(n);
 
@@ -21,4 +17,3 @@ int main(int argc, char **argv) {
 
   return 0;
 }
-// %EndTag(FULLTEXT)%

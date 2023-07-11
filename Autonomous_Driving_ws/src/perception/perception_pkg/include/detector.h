@@ -13,13 +13,8 @@
 class Detector {
 public:
   Detector(ros::NodeHandle &nh);
-
   void semeticCallback(const sensor_msgs::ImageConstPtr &sem_img);
   void RGBCallback(const sensor_msgs::ImageConstPtr &RGB_img);
-
-  void localize();
-  bool recognize(std::vector<uint8_t> image_data);
-  void recognize_from_boundingboxes();
   // void timerCallback(const ros::TimerEvent&);
 
 private:
@@ -28,10 +23,10 @@ private:
 
   ros::Subscriber sub_sem_cam_;
   ros::Subscriber sub_RGB_cam_;
-  ros::Subscriber sub_boundingboxes_;
   ros::ServiceServer service;
   ros::NodeHandle &nh_;
 
+  std_msgs::Bool msg_traffic_state_;
   std::vector<uint32_t> area_trafficlights_;
   std::vector<uint8_t> sem_data_;
   std::vector<uint8_t> RGB_data_;
