@@ -15,9 +15,9 @@ public:
   Detector(ros::NodeHandle &nh);
 
   void semeticCallback(const sensor_msgs::ImageConstPtr &sem_img);
-  void RGBCallback(const sensor_msgs::ImageConstPtr &sem_img);
+  void RGBCallback(const sensor_msgs::ImageConstPtr &RGB_img);
 
-  void recognize(const std::vector<uint32_t> pixels_in);
+  void recognize_from_boundingboxes();
   // void timerCallback(const ros::TimerEvent&);
   std::vector<uint32_t> area_trafficlights_;
 
@@ -27,12 +27,12 @@ private:
 
   ros::Subscriber sub_sem_cam_;
   ros::Subscriber sub_RGB_cam_;
+  ros::Subscriber sub_boundingboxes_;
   ros::ServiceServer service;
   ros::NodeHandle &nh_;
 
   int hight_ = 240;
   int width_ = 320;
-  
 };
 
 #endif

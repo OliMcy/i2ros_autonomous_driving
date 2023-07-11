@@ -3,6 +3,8 @@
 #include "std_msgs/Bool.h"
 #include "std_msgs/String.h"
 #include "std_msgs/UInt32MultiArray.h"
+// #include "detection_msgs/BoundingBoxes.h"
+// #include "detection_msgs/BoundingBox.h"
 #include <cstdint>
 #include <detector.h>
 #include <sstream>
@@ -20,7 +22,6 @@ Detector::Detector(ros::NodeHandle &nh) : nh_(nh) {
 
 void Detector::semeticCallback(const sensor_msgs::ImageConstPtr &sem_img) {
   const std::vector<uint8_t> &image_data = sem_img->data;
-  std_msgs::UInt32MultiArray msg_pixel_yellow;
 
   for (size_t i = 0; i < 120; i++) {
     for (size_t j = 1; j < 960; j = j + 3) {
@@ -54,15 +55,3 @@ void Detector::RGBCallback(const sensor_msgs::ImageConstPtr &RGB_img) {
     }
   }
 }
-
-// void Detector::recognize(std::vector<uint32_t> pixels_in) {
-
-//   for (size_t i = 0; i < pixels_in.size(); i++) {
-//     uint32_t pixel_index = (pixels_in[i] / 3) % (240 * 320);
-//     int row = pixel_index / 320;
-//     int col = pixel_index % 320;
-//     // if (row <= 140 && col >= 100 && col <= 220) {
-//     ROS_INFO("traffic light [%u] [%u]", col, row);
-//     // }
-//   }
-// }

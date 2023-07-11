@@ -10,7 +10,7 @@
 
 int main(int argc, char **argv) {
   // %Tag(INIT)%
-  ros::init(argc, argv, "detector");
+  ros::init(argc, argv, "trafficlights_detector");
   // %EndTag(INIT)%
 
   // %Tag(NODEHANDLE)%
