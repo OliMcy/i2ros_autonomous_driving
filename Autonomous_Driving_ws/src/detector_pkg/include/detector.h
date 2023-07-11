@@ -19,10 +19,9 @@ public:
 
   void recognize(const std::vector<uint32_t> pixels_in);
   // void timerCallback(const ros::TimerEvent&);
-  std::vector<uint32_t> pixel_yellow_;
+  std::vector<uint32_t> sem_area_trafficlights;
 
 private:
-  ros::Publisher pub_yellow_pixels_;
   ros::Publisher pub_traffic_state_;
   ros::Timer timer;
 
