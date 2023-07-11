@@ -6,8 +6,6 @@
 #include <sstream>
 #include <vector>
 
-// %Tag(CALLBACK)%
-
 int main(int argc, char **argv) {
   // %Tag(INIT)%
   ros::init(argc, argv, "trafficlights_detector");
@@ -18,9 +16,6 @@ int main(int argc, char **argv) {
   // %EndTag(NODEHANDLE)%
 
   Detector detector(n);
-
-  // ros::Duration(1).sleep();
-  // detector.recognize(detector.pixel_yellow_);
 
   ros::spin();
 
