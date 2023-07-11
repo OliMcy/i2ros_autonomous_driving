@@ -21,37 +21,36 @@ Detector::Detector(ros::NodeHandle &nh) : nh_(nh) {
 void Detector::semeticCallback(const sensor_msgs::ImageConstPtr &sem_img) {
   const std::vector<uint8_t> &image_data = sem_img->data;
   std_msgs::UInt32MultiArray msg_pixel_yellow;
-  for (size_t i = 1; i < image_data.size(); i = i + 3) {
-    if (image_data[i] == 235) {
-      sem_area_trafficlights.push_back(i);
-      // ROS_INFO("data[%zu]: %u", i, image_data[i]);
+
+  for (size_t i = 0; i < 120; i++) {
+    for (size_t j = 1; j < 960; j = j + 3) {
+      if (image_data[i * 960 + j] == 235 && j > 300 && j < 660) {
+        area_trafficlights_.push_back(i * 960 + j);
+      }
     }
   }
-  // msg_pixel_yellow.data = pixel_yellow;
-  // pub_yellow_pixels_.publish(msg_pixel_yellow);
 }
 
 void Detector::RGBCallback(const sensor_msgs::ImageConstPtr &RGB_img) {
   const std::vector<uint8_t> &image_data = RGB_img->data;
 
   std_msgs::Bool msg_traffic_state;
-  for (size_t i = 0; i < sem_area_trafficlights.size(); i++) {
+  for (size_t i = 0; i < area_trafficlights_.size(); i++) {
     // ROS_INFO("[%u] [%u]
-    // [%u]",image_data[sem_area_trafficlights[i-1]],image_data[sem_area_trafficlights[i]],image_data[sem_area_trafficlights[i+1]]);
-    if (image_data[sem_area_trafficlights[i] - 1] > 200 &&
-        image_data[sem_area_trafficlights[i]] < 80 &&
-        image_data[sem_area_trafficlights[i + 1]] < 80) {
+    // [%u]",image_data[area_trafficlights_[i-1]],image_data[area_trafficlights_[i]],image_data[area_trafficlights_[i+1]]);
+    if (image_data[area_trafficlights_[i] - 1] > 200 &&
+        image_data[area_trafficlights_[i]] < 80 &&
+        image_data[area_trafficlights_[i + 1]] < 80) {
       // ROS_INFO("Red Light!");
       msg_traffic_state.data = false;
       pub_traffic_state_.publish(msg_traffic_state);
-    } else if (image_data[sem_area_trafficlights[i] - 1] < 100 &&
-               image_data[sem_area_trafficlights[i]] > 200 &&
-               image_data[sem_area_trafficlights[i + 1]] < 100) {
+    } else if (image_data[area_trafficlights_[i] - 1] < 100 &&
+               image_data[area_trafficlights_[i]] > 200 &&
+               image_data[area_trafficlights_[i + 1]] < 100) {
       msg_traffic_state.data = true;
       pub_traffic_state_.publish(msg_traffic_state);
-    }
-    else{
-      //do nothing
+    } else {
+      // do nothing
     }
   }
 }
