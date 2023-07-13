@@ -12,6 +12,10 @@ int main(int argc, char **argv) {
   ros::NodeHandle n;
 
   Detector detector(n);
+  detector.localize();
+  detector.recognize();
+
+  ros::Rate loop_rate(10);
 
   ros::spin();
 

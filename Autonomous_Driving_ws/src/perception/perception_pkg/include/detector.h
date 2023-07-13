@@ -15,6 +15,8 @@ public:
   Detector(ros::NodeHandle &nh);
   void semeticCallback(const sensor_msgs::ImageConstPtr &sem_img);
   void RGBCallback(const sensor_msgs::ImageConstPtr &RGB_img);
+  void localize();
+  void recognize();
   // void timerCallback(const ros::TimerEvent&);
 
 private:

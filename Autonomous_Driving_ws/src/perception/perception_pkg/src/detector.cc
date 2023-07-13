@@ -4,18 +4,13 @@
 #include "std_msgs/String.h"
 #include "std_msgs/UInt32MultiArray.h"
 #include <cstdint>
+#include <cstdlib>
 #include <detector.h>
 #include <sstream>
 #include <vector>
 
 Detector::Detector(ros::NodeHandle &nh) : nh_(nh) {
   pub_traffic_state_ = nh.advertise<std_msgs::Bool>("traffic_state", 0);
-  sub_sem_cam_ =
-      nh.subscribe("/unity_ros/OurCar/Sensors/SemanticCamera/image_raw", 1000,
-                   &Detector::semeticCallback, this);
-  ros::spinOnce();
-  sub_RGB_cam_ = nh.subscribe("/realsense/rgb/left_image_raw", 1000,
-                              &Detector::RGBCallback, this);
 }
 
 void Detector::semeticCallback(const sensor_msgs::ImageConstPtr &sem_img) {
@@ -58,9 +53,19 @@ void Detector::RGBCallback(const sensor_msgs::ImageConstPtr &RGB_img) {
       msg_traffic_state_.data = true;
       // publish traffic state
       pub_traffic_state_.publish(msg_traffic_state_);
-    }
-     else {
+    } else {
       // do nothing
     }
   }
+}
+
+void Detector::localize() {
+  sub_sem_cam_ =
+      nh_.subscribe("/unity_ros/OurCar/Sensors/SemanticCamera/image_raw", 1000,
+                   &Detector::semeticCallback, this);
+}
+
+void Detector::recognize() {
+  sub_RGB_cam_ = nh_.subscribe("/realsense/rgb/left_image_raw", 1000,
+                              &Detector::RGBCallback, this);
 }
