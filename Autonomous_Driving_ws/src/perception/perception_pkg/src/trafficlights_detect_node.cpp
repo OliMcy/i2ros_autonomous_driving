@@ -12,10 +12,17 @@ int main(int argc, char **argv) {
   ros::NodeHandle n;
 
   Detector detector(n);
+
+  // ros::Rate loop_rate(10);
+
+  // while (ros::ok()) {
   detector.localize();
   detector.recognize();
-
-  ros::Rate loop_rate(10);
+  detector.getBoundingBox();
+  detector.drawBoundingBox();
+  //   ros::spinOnce();
+  //   loop_rate.sleep();
+  // }
 
   ros::spin();
 
