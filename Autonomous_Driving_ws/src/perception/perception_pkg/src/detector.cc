@@ -19,14 +19,34 @@ Detector::Detector(ros::NodeHandle &nh) : nh_(nh) {
 }
 
 void Detector::semeticCallback(const sensor_msgs::ImageConstPtr &sem_img) {
+  /**
+   * Description:
+   * Extract the coordinates of the trafflic light in semantic camera.
+   * 
+   * Input:
+   * Image topic.
+   * 
+   * Output:
+   * The index of the second channel of the pixel in data. 
+   */
+
   // Get the image data
   const std::vector<uint8_t> &image_data = sem_img->data;
+  // Get the width and height of the image
+  int image_width = sem_img->width;
+  int image_height = sem_img->height;
   // Loop through the image data
-  for (size_t i = 0; i < 120; i++) {
+  // The traffic light only shows up in the upper half of the image
+  for (size_t i = 0; i < image_height / 2; i++) {
     // Loop through the rows
-    for (size_t j = 1; j < 960; j = j + 3) {
-      // Check if the pixel is a traffic light located in middle part of image
-      if (image_data[i * 960 + j] == 235 && j > 300 && j < 660) {
+    // The number of elements in each row equals the image_width * channels
+    for (size_t j = 301; j < 660; j = j + 3) {
+      /*
+       * Check if the pixel belongs to traffic light located in middle part of image(300 ~ 600)
+       * The pixel value of yellow is [255, 235, 4]
+       * The value of the second channel will be examed, that's why j start from 301 but not 300.
+       */ 
+      if (image_data[i * 960 + j] == 235) {
         // Push the pixel coordinates into the vector
         area_trafficlights_.push_back(i * 960 + j);
       }
@@ -37,7 +57,7 @@ void Detector::semeticCallback(const sensor_msgs::ImageConstPtr &sem_img) {
 void Detector::RGBCallback(const sensor_msgs::ImageConstPtr &RGB_img) {
   const std::vector<uint8_t> &image_data = RGB_img->data;
 
-  // publish traffic state
+  // publish traffic stateimage_data
   for (size_t i = 0; i < area_trafficlights_.size(); i++) {
     // red light
     if (image_data[area_trafficlights_[i] - 1] > 200 &&
@@ -48,6 +68,8 @@ void Detector::RGBCallback(const sensor_msgs::ImageConstPtr &RGB_img) {
       msg_traffic_state_.data = false;
       // publish traffic state
       pub_traffic_state_.publish(msg_traffic_state_);
+
+      area_trafficlights_.clear();
     }
     // green light
     else if (image_data[area_trafficlights_[i] - 1] < 150 &&
@@ -58,7 +80,10 @@ void Detector::RGBCallback(const sensor_msgs::ImageConstPtr &RGB_img) {
       msg_traffic_state_.data = true;
       // publish traffic state
       pub_traffic_state_.publish(msg_traffic_state_);
-    } else {
+
+      area_trafficlights_.clear();
+    } 
+    else {
       // do nothing
     }
   }
@@ -77,7 +102,7 @@ void Detector::getBoundingBoxCallback(const sensor_msgs::Image::ConstPtr &msg) {
 
   // Iterate over the pixels and analyze RGB values
   for (int y = 0; y < 120; ++y) {
-    for (int x = 100; x < 220; ++x) {
+    for (int x = 140; x < 180; ++x) {
       int pixel_index =
           (y * image_width + x) * 3; // Index of the pixel in the 1D vector
 
@@ -102,40 +127,6 @@ void Detector::getBoundingBoxCallback(const sensor_msgs::Image::ConstPtr &msg) {
     }
   }
 }
-
-// void Detector::drawBoundingBoxCallback(
-//     const sensor_msgs::Image::ConstPtr &original_msg) {
-//   // Create a new image message for the modified image
-//   sensor_msgs::Image modified_msg;
-//   modified_msg.header = original_msg->header;
-//   modified_msg.height = original_msg->height;
-//   modified_msg.width = original_msg->width;
-//   modified_msg.encoding = original_msg->encoding;
-//   modified_msg.is_bigendian = original_msg->is_bigendian;
-//   modified_msg.step = original_msg->step;
-//   modified_msg.data = original_msg->data;
-
-//   // Iterate over the pixels within the bounding box region and modify the image
-//   for (int y = min_y_; y <= max_y_; ++y) {
-//     for (int x = min_x_; x <= max_x_; ++x) {
-//       int pixel_index = (y * modified_msg.width + x) *
-//                         3; // Index of the pixel in the 1D vector
-
-//       // Modify the pixel color to highlight the bounding box
-//       // red
-//       if (msg_traffic_state_.data) {
-//         modified_msg.data[pixel_index] = 0;       // Red channel
-//         modified_msg.data[pixel_index + 1] = 255; // Green channel
-//         modified_msg.data[pixel_index + 2] = 0;   // Blue channel}
-//       } else {
-//         modified_msg.data[pixel_index] = 255;   // Red channel
-//         modified_msg.data[pixel_index + 1] = 0; // Green channel
-//         modified_msg.data[pixel_index + 2] = 0; // Blue channel}
-//       }
-//     }
-//   }
-//   pub_BoundingBoxImage_.publish(modified_msg);
-// }
 
 void Detector::drawBoundingBoxCallback(
     const sensor_msgs::Image::ConstPtr &original_msg) {
