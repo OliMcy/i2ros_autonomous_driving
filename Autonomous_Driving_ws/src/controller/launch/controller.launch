@@ -1,5 +1,5 @@
 <launch>
   <include file="$(find controller)/launch/pid.launch" >
   </include>
-  <node name="car_commands" pkg="controller" type="controller_node">
+  <node name="car_commands" pkg="controller" type="controller_node"> </node>
 </launch>
