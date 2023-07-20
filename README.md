@@ -4,6 +4,7 @@ Run following command to install required packages.
 
 ```shell
 sudo apt install ros-noetic-octomap-rviz-plugins ros-noetic-octomap-server
+sudo apt install ros-noetic-pid
 ```
 
 # Getting Started
