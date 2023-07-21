@@ -1,5 +1,7 @@
 <launch>
-    <node name="pid_provider" pkg="controller" type="pid_provider_node"> </node>
+  <node name="pid_provider" pkg="controller" type="pid_provider_node"> 
+    	<remap from="current_twist" to="twist_est" />
+  </node>
 
     <node name="velocity_pid" pkg="pid" type="controller" output="screen" >
       <param name="Kp" value="5.0" />
