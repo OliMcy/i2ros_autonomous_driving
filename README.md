@@ -6,6 +6,14 @@ Run following command to install required packages.
 sudo apt install ros-noetic-octomap-rviz-plugins ros-noetic-octomap-server
 sudo apt install ros-noetic-pid
 ```
+# Useful command
+```shell
+roslaunch simulation simulation.launch # launch main process
+rostopic pub /target_twist geometry_msgs/Twist '{linear: {x: 0.5, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0}}' -r 100 # set pid target linear velocity
+rostopic echo /stop_signal # show wether to stop
+rostopic pub perception/traffic_state std_msgs/Bool "true" -r 100 # set traffic light state to red
+rostopic pub perception/traffic_state std_msgs/Bool "false" -r 100 # set traffic light state to green
+```
 
 # Getting Started
 
