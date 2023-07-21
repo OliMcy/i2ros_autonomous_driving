@@ -13,6 +13,8 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  sensor_msgs
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
@@ -56,6 +58,7 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate services in the 'srv' folder
+add_service_files(FILES traffic_light.srv)
 # add_service_files(
 #   FILES
 #   Service1.srv
@@ -63,6 +66,7 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate actions in the 'action' folder
+generate_messages( DEPENDENCIES sensor_msgs std_msgs )
 # add_action_files(
 #   FILES
 #   Action1.action
@@ -109,6 +113,14 @@ catkin_package(
 #  LIBRARIES controller
 #  CATKIN_DEPENDS geometry_msgs mav_msgs roscpp rospy std_msgs
 #  DEPENDS system_lib
+  CATKIN_DEPENDS
+  geometry_msgs
+  mav_msgs
+  message_runtime
+  sensor_msgs
+  roscpp
+  rospy
+  std_msgs
 )
 
 ###########
