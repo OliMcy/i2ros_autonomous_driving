@@ -15,6 +15,7 @@ rostopic pub /target_twist geometry_msgs/Twist '{linear: {x: 0.5, y: 0.0, z: 0.0
 rostopic echo /stop_signal # show wether to stop
 rostopic pub perception/traffic_state std_msgs/Bool "true" -r 100 # set traffic light state to red
 rostopic pub perception/traffic_state std_msgs/Bool "false" -r 100 # set traffic light state to green
+rostopic pub /pid_enable std_msgs/Bool "false" # to disable pid controll and enable manually control (stop car firstly!!!)
 ```
 ## rqt_plot
 `target_linear_velocity`
