@@ -27,17 +27,10 @@ public:
         nh.subscribe("target_twist", 1, &controllerNode::updateOmega, this);
     pid_effort_sub =
         nh.subscribe("linear_acc", 1, &controllerNode::updateLinearAcc, this);
-    traffic_state_sub = nh.subscribe("perception/traffic_state", 1,
-                                     &controllerNode::updateStopSignal, this);
-    breaking_sub =
-        nh.subscribe("break_acc", 1, &controllerNode::updateBreakAcc, this);
-
     car_commands_pub = nh.advertise<mav_msgs::Actuators>("car_commands", 1);
 
     command_timer =
         nh.createTimer(ros::Rate(hz), &controllerNode::controlLoop, this);
-    breaking_timer =
-        nh.createTimer(ros::Rate(hz), &controllerNode::breakingLoop, this);
 
   }
 
