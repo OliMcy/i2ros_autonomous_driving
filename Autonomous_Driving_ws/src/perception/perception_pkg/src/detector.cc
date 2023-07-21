@@ -63,29 +63,29 @@ void Detector::RGBCallback(const sensor_msgs::ImageConstPtr &RGB_img) {
     if (image_data[area_trafficlights_[i] - 1] > 200 &&
         image_data[area_trafficlights_[i]] < 100 &&
         image_data[area_trafficlights_[i + 1]] < 100) {
-      ROS_INFO("Red Light!");
       // set traffic state to false
-      msg_traffic_state_.data = false;
+      msg_traffic_state_.data = true;
       // publish traffic state
       pub_traffic_state_.publish(msg_traffic_state_);
 
       area_trafficlights_.clear();
     }
     // green light
-    else if (image_data[area_trafficlights_[i] - 1] < 150 &&
-             image_data[area_trafficlights_[i]] > 200 &&
-             image_data[area_trafficlights_[i + 1]] < 150) {
-      ROS_INFO("Green Light!");
-      // set traffic state to true
-      msg_traffic_state_.data = true;
-      // publish traffic state
-      pub_traffic_state_.publish(msg_traffic_state_);
-
-      area_trafficlights_.clear();
-    } 
+    // else if (image_data[area_trafficlights_[i] - 1] < 150 &&
+    //          image_data[area_trafficlights_[i]] > 200 &&
+    //          image_data[area_trafficlights_[i + 1]] < 150) {
+    //   ROS_INFO("Green Light!");
+    //   // set traffic state to true
+    //   msg_traffic_state_.data = true;
+    //   // publish traffic state
+    //
+    //   area_trafficlights_.clear();
+    // } 
     else {
+      msg_traffic_state_.data = false;
       // do nothing
     }
+    pub_traffic_state_.publish(msg_traffic_state_);
   }
 }
 
