@@ -1,6 +1,7 @@
 <launch>
   <node name="pid_provider" pkg="controller" type="pid_provider_node"> 
     	<remap from="current_twist" to="twist_est" />
+      <remap from="current_state_est" to="odometry/filtered_state" />
   </node>
 
     <node name="velocity_pid" pkg="pid" type="controller" output="screen" >
