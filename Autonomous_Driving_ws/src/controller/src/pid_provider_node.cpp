@@ -37,6 +37,7 @@ public:
     // nh.advertise<std_msgs::Float64>("current_angular_velocity", 1);
     // target_omega_pub =
     // nh.advertise<std_msgs::Float64>("target_angular_velocity", 1);
+    stop_signal = false;
   }
   void updateStopSignal(std_msgs::Bool traffic_light_state) {
     if (traffic_light_state.data != stop_signal) {
