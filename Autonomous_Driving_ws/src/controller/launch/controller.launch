@@ -5,5 +5,10 @@
   <include file="$(find controller)/launch/pid.launch" >
   </include>
 
-  <node name="car_commands" pkg="controller" type="controller_node"> </node>
+  <include file="$(find controller)/launch/debug.launch" >
+  </include>
+
+  <node name="car_commands" pkg="controller" type="controller_node"> 
+  </node>
+  <!-- <node name="traffic_light_detector" pkg="perception_pkg" type="trafficlights_detect_node"> </node> -->
 </launch>
