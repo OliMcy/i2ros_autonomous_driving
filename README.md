@@ -5,6 +5,7 @@ Run following command to install required packages.
 ```shell
 sudo apt install ros-noetic-octomap-rviz-plugins ros-noetic-octomap-server
 sudo apt install ros-noetic-pid ros-noetic-robot-localization
+sudo apt install ros-noetic-smach-ros
 ```
 
 #  pid tuning
