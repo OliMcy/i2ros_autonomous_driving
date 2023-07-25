@@ -16,7 +16,7 @@ class DriveState(smach.State):
         rate = rospy.Rate(100)  # 100 Hz
         global v, omega
 
-        while signal_value and not rospy.is_shutdown():
+        while not signal_value and not rospy.is_shutdown():
             target_v_pub.publish(v)
             target_omega_pub.publish(omega)
             rate.sleep()
