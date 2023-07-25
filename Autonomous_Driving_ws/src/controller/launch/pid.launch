@@ -4,6 +4,8 @@
       <remap from="current_state_est" to="odometry/filtered_state" />
       <!-- <remap from="current_state_est" to="odometry" /> -->
   </node>
+  <node name="target_twist" pkg="state_machine" type="state_machine.py"> 
+  </node>
 
     <node name="velocity_pid" pkg="pid" type="controller">
       <param name="Kp" value="1.0" />
