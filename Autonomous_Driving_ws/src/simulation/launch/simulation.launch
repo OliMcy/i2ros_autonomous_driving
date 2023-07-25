@@ -61,6 +61,11 @@
   <node pkg="tf2_ros" type="static_transform_publisher"
         name="depth_camera_frame_to_body"      args="0 0 0 0 0 -1.5707963 /true_body /OurCar/Sensors/DepthCamera" />
 
+  <node pkg="tf2_ros" type="static_transform_publisher" name="base_link" args="0 0 0 1.5707963 0 0 /body /base_link" />
+
+ <!-- <node name="odom_pub_node" pkg="simulation" type="odom_publish_node" /> -->
+
+
   <include file="$(find perception_pkg)/launch/point_cloud.launch" >
       <arg name="name" value="OurCar" />
   </include>
