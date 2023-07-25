@@ -119,7 +119,7 @@ include_directories(# include
 # single CMake context The recommended prefix ensures that target names across
 # packages don't collide
 add_executable(controller_node src/controller_node.cpp)
-add_executable(pid_provider_node src/pid_provider_node.cpp)
+add_executable(current_twist_node src/current_twist_node.cpp)
 add_executable(odometry_node src/odometry_node.cpp)
 
 # Rename C++ executable without prefix The above recommended prefix causes long
@@ -131,14 +131,14 @@ add_executable(odometry_node src/odometry_node.cpp)
 # Add cmake target dependencies of the executable same as for the library above
 add_dependencies(controller_node ${${PROJECT_NAME}_EXPORTED_TARGETS}
                  ${catkin_EXPORTED_TARGETS})
-add_dependencies(pid_provider_node ${${PROJECT_NAME}_EXPORTED_TARGETS}
+add_dependencies(current_twist_node ${${PROJECT_NAME}_EXPORTED_TARGETS}
                  ${catkin_EXPORTED_TARGETS})
 add_dependencies(odometry_node ${${PROJECT_NAME}_EXPORTED_TARGETS}
                  ${catkin_EXPORTED_TARGETS})
 
 # Specify libraries to link a library or executable target against
 target_link_libraries(controller_node ${catkin_LIBRARIES})
-target_link_libraries(pid_provider_node ${catkin_LIBRARIES})
+target_link_libraries(current_twist_node ${catkin_LIBRARIES})
 target_link_libraries(odometry_node ${catkin_LIBRARIES})
 
 # ##############################################################################
