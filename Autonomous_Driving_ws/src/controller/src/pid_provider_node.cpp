@@ -14,8 +14,8 @@ class PidProviderNode {
   ros::Publisher target_v_pub;
   ros::Publisher current_v_pub;
 
-  // ros::Publisher target_omega_pub;
-  // ros::Publisher current_omega_pub;
+  ros::Publisher target_omega_pub;
+  ros::Publisher current_omega_pub;
 
   bool stop_signal;
   int counter;
@@ -33,10 +33,11 @@ public:
     current_v_pub =
         nh.advertise<std_msgs::Float64>("current_linear_velocity", 1);
 
-    // current_omega_pub =
-    // nh.advertise<std_msgs::Float64>("current_angular_velocity", 1);
-    // target_omega_pub =
-    // nh.advertise<std_msgs::Float64>("target_angular_velocity", 1);
+    current_omega_pub =
+        nh.advertise<std_msgs::Float64>("current_angular_velocity", 1);
+    target_omega_pub =
+        nh.advertise<std_msgs::Float64>("target_angular_velocity", 1);
+
     stop_signal = false;
   }
   void updateStopSignal(std_msgs::Bool traffic_light_state) {
@@ -50,27 +51,28 @@ public:
   }
   void extractPidTarget(const geometry_msgs::Twist twist) {
     std_msgs::Float64 v;
+    std_msgs::Float64 omega;
 
-    if (stop_signal)
+    if (stop_signal) {
       v.data = 0.0;
-    else
+      omega.data = 0.0;
+    } else {
       v.data = twist.linear.x;
+      omega.data = twist.angular.z;
+    }
 
     target_v_pub.publish(v);
-
-    // std_msgs::Float64 omega;
-    // omega = twist.angular.z;
-    // target_omega_pub.publish(omega);
+    target_omega_pub.publish(omega);
   }
 
   void extractCurrentTwist(const nav_msgs::Odometry current_state_est) {
     std_msgs::Float64 v;
-    v.data = -current_state_est.twist.twist.linear.x;
+    v.data = current_state_est.twist.twist.linear.x;
     current_v_pub.publish(v);
 
-    // std_msgs::Float64 omega;
-    // omega = twist.angular.z;
-    // current_omega_pub.publish(omega);
+    std_msgs::Float64 omega;
+    omega.data = current_state_est.twist.twist.angular.z;
+    current_omega_pub.publish(omega);
   }
 };
 

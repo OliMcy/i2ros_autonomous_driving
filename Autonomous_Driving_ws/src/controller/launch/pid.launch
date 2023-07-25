@@ -2,6 +2,7 @@
   <node name="pid_provider" pkg="controller" type="pid_provider_node"> 
     	<remap from="current_twist" to="twist_est" />
       <remap from="current_state_est" to="odometry/filtered_state" />
+      <!-- <remap from="current_state_est" to="odometry" /> -->
   </node>
 
     <node name="velocity_pid" pkg="pid" type="controller">
@@ -20,6 +21,21 @@
       <param name="topic_from_controller" value="linear_acc" />
      </node>
 
+    <node name="omega_pid" pkg="pid" type="controller">
+      <param name="Kp" value="1.0" />
+      <param name="Ki" value="0.0" />
+      <param name="Kd" value="0.5" />
+      <param name="upper_limit" value="10" />
+      <param name="lower_limit" value="-10" />
+      <param name="windup_limit" value="10" />
+      <param name="cutoff_frequency" value="20" />
+      <param name="max_loop_frequency" value="105.0" />
+      <param name="min_loop_frequency" value="95.0" />
+      <param name="setpoint_timeout" value="-1.0" />
+      <param name="setpoint_topic" value="target_angular_velocity" />
+      <param name="topic_from_plant" value="current_angular_velocity" />
+      <param name="topic_from_controller" value="turning_angle" />
+     </node>
     <!-- <node name="breaking_pid" pkg="pid" type="controller"> -->
     <!--   <param name="Kp" value="5.0" /> -->
     <!--   <param name="Ki" value="0.0" /> -->
