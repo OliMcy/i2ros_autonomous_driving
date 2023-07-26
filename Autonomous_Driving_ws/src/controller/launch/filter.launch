@@ -3,6 +3,7 @@
         name="robot_localization_ekf_node_odom"
         clear_params="true">
     <param name="frequency" value="100" />
+    <param name="publish_tf" value="false" />
     <param name="sensor_timeout" value="0.2" />
     <param name="odom_frame" value="world" />
     <param name="base_link_frame" value="base_link" />

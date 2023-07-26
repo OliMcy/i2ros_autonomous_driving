@@ -2,7 +2,7 @@
   <node name="current_twist" pkg="controller" type="current_twist_node"> 
     	<remap from="current_twist" to="twist_est" />
       <remap from="current_state_est" to="odometry/filtered_state" />
-      <!-- <remap from="current_state_est" to="odometry" /> -->
+      <!-- <remap from="current_state_est" to="odometry/raw" /> -->
   </node>
   <node name="target_twist" pkg="state_machine" type="state_machine.py"> 
   </node>

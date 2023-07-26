@@ -50,22 +50,24 @@ public:
     geometry_msgs::TransformStamped tf_body_base;
 
     tf::quaternionMsgToEigen(cur_state.pose.pose.orientation, q);
-    try {
-      tf_body_base =
-          tfBuffer.lookupTransform("body", "base_link", ros::Time(0));
-    } catch (tf2::TransformException &ex) {
-      ROS_WARN("%s", ex.what());
-      ros::Duration(1.0).sleep();
-      tf_body_base =
-          tfBuffer.lookupTransform("body", "base_link", ros::Time(0));
+    while (true) {
+      try {
+        tf_body_base =
+            tfBuffer.lookupTransform("world", "base_link", ros::Time(0));
+        break;
+      } catch (tf2::TransformException &ex) {
+        ROS_WARN("%s", ex.what());
+        ros::Duration(1.0).sleep();
+        continue;
+      }
     }
 
     tf::transformMsgToEigen(tf_body_base.transform, eigen_tf_body_base);
     R = q.toRotationMatrix();
 
     // Rotate omega
-    omega = eigen_tf_body_base.rotation().transpose() * R.transpose() * omega;
-    v = eigen_tf_body_base.rotation().transpose() * R.transpose() * v;
+    omega = eigen_tf_body_base.rotation().transpose() * omega;
+    v = eigen_tf_body_base.rotation().transpose() * v;
     nav_msgs::Odometry odometry;
 
     odometry.header.stamp = cur_state.header.stamp;
