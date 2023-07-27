@@ -51,8 +51,6 @@ def target_twist_callback(target_twist_msg):
 
 class TrafficLight:
     def __init__(self) -> None:
-        global signal_value
-        signal_value = False
         self.signal_sub = rospy.Subscriber("signal", Bool, self.signal_callback)
         self.last_signal_value = False
         self.counter = 0
@@ -61,7 +59,9 @@ class TrafficLight:
         global signal_value
         if self.last_signal_value == signal_msg.data:
             self.counter += 1
+        else:
             self.last_signal_value = signal_msg.data
+            self.counter = 0
         if self.counter > 10:
             signal_value = signal_msg.data
             self.counter = 0
@@ -70,6 +70,8 @@ class TrafficLight:
 def main():
     rospy.init_node("smach")
 
+    global signal_value
+    signal_value = False
     traffic_light = TrafficLight()
 
     global v, omega
