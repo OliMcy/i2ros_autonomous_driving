@@ -44,22 +44,33 @@ class StopState(smach.State):
         return "drive"  # Transition to the drive state when the signal becomes True
 
 
-def signal_callback(signal_msg):
-    global signal_value
-    signal_value = signal_msg.data
-
-
 def target_twist_callback(target_twist_msg):
     v.data = target_twist_msg.linear.x
     omega.data = target_twist_msg.angular.z
 
 
+class TrafficLight:
+    def __init__(self) -> None:
+        global signal_value
+        signal_value = False
+        self.signal_sub = rospy.Subscriber("signal", Bool, self.signal_callback)
+        self.last_signal_value = False
+        self.counter = 0
+
+    def signal_callback(self, signal_msg):
+        global signal_value
+        if self.last_signal_value == signal_msg.data:
+            self.counter += 1
+            self.last_signal_value = signal_msg.data
+        if self.counter > 10:
+            signal_value = signal_msg.data
+            self.counter = 0
+
+
 def main():
     rospy.init_node("smach")
 
-    global signal_value
-    signal_value = False
-    signal_sub = rospy.Subscriber("signal", Bool, signal_callback)
+    traffic_light = TrafficLight()
 
     global v, omega
     v = Float64()
@@ -80,6 +91,8 @@ def main():
     # sis.start()
 
     outcome = sm.execute()
+
+    rospy.spin()
 
 
 if __name__ == "__main__":
