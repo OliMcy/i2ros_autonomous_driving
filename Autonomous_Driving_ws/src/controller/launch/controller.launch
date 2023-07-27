@@ -10,7 +10,7 @@
 
   <node name="car_commands" pkg="controller" type="controller_node"> 
   </node>
-  <!-- <node name="traffic_light_detector" pkg="perception_pkg" type="trafficlights_detect_node"> </node> -->
+  <node name="traffic_light_detector" pkg="perception_pkg" type="trafficlights_detect_node"> </node>
   <node name="odometry_publisher" pkg="controller" type="odometry_node"> 
   </node>
 </launch>
