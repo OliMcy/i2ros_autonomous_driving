@@ -51,7 +51,7 @@ def target_twist_callback(target_twist_msg):
 
 class TrafficLight:
     def __init__(self) -> None:
-        self.signal_sub = rospy.Subscriber("signal", Bool, self.signal_callback)
+        self.signal_sub = rospy.Subscriber("perception/traffic_state", Bool, self.signal_callback)
         self.last_signal_value = False
         self.counter = 0
 
