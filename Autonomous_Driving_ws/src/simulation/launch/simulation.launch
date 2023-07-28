@@ -77,6 +77,8 @@
   <include file="$(find simulation)/launch/octomap.launch">
       <arg name="name" value="OurCar" />
   </include>
+  
+  <node pkg="perception_pkg" type="trafficlights_detect_node" name="trafficlights_detect_node" output="screen"/>
 
   <node pkg="rviz" type="rviz" name="rviz" args="-d $(find simulation)/rviz/AutonomousCar.rviz" />
 

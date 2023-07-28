@@ -63,7 +63,7 @@ void Detector::RGBCallback(const sensor_msgs::ImageConstPtr &RGB_img) {
     if (image_data[area_trafficlights_[i] - 1] > 200 &&
         image_data[area_trafficlights_[i]] < 100 &&
         image_data[area_trafficlights_[i + 1]] < 100) {
-        ROS_INFO("Red Light!");
+        ROS_INFO_STREAM("Red Light!");
       // set traffic state to false
       msg_traffic_state_.data = true;
       // publish traffic state
@@ -74,7 +74,7 @@ void Detector::RGBCallback(const sensor_msgs::ImageConstPtr &RGB_img) {
     else if (image_data[area_trafficlights_[i] - 1] < 150 &&
              image_data[area_trafficlights_[i]] > 200 &&
              image_data[area_trafficlights_[i + 1]] < 150) {
-      ROS_INFO("Green Light!");
+      ROS_INFO_STREAM("Green Light!");
       // set traffic state to true
       msg_traffic_state_.data = false;
       // publish traffic state
@@ -101,7 +101,7 @@ void Detector::getBoundingBoxCallback(const sensor_msgs::Image::ConstPtr &msg) {
 
   // Iterate over the pixels and analyze RGB values
   for (int y = 0; y < 120; ++y) {
-    for (int x = 130; x < 190; ++x) {
+    for (int x = 135; x < 185; ++x) {
       int pixel_index =
           (y * image_width + x) * 3; // Index of the pixel in the 1D vector
 
@@ -208,23 +208,23 @@ void Detector::drawBoundingBoxCallback(
 
 void Detector::localize() {
   sub_sem_cam_ =
-      nh_.subscribe("/unity_ros/OurCar/Sensors/SemanticCamera/image_raw", 10,
+      nh_.subscribe("/unity_ros/OurCar/Sensors/SemanticCamera/image_raw", 1,
                     &Detector::semeticCallback, this);
 }
 
 void Detector::recognize() {
-  sub_RGB_cam_ = nh_.subscribe("/realsense/rgb/left_image_raw", 10,
+  sub_RGB_cam_ = nh_.subscribe("/realsense/rgb/left_image_raw", 1,
                                &Detector::RGBCallback, this);
 }
 
 void Detector::getBoundingBox() {
   sub_getBoundingbox_ =
-      nh_.subscribe("/unity_ros/OurCar/Sensors/SemanticCamera/image_raw", 10,
+      nh_.subscribe("/unity_ros/OurCar/Sensors/SemanticCamera/image_raw", 1,
                     &Detector::getBoundingBoxCallback, this);
 }
 
 void Detector::drawBoundingBox() {
   sub_drawBoundingBox_ =
-      nh_.subscribe("/realsense/rgb/left_image_raw", 10,
+      nh_.subscribe("/realsense/rgb/left_image_raw", 1,
                     &Detector::drawBoundingBoxCallback, this);
 }
