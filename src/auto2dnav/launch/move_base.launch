@@ -1,0 +1,5 @@
+<launch>
+    <include file="$(find auto2dnav)/param/move_base.xml" />
+    
+
+</launch>

@@ -1,0 +1,20 @@
+global_costmap:
+  plugins: 
+      - {name: static_layer,       type: "costmap_2d::StaticLayer"}
+      - {name: inflation_layer,       type: "costmap_2d::InflationLayer"}
+  footprint: [[-2, -1], [-2, 1], [2, 1], [2, -1]]
+  global_frame: world
+  robot_base_frame: base_link
+  update_frequency: 5
+  publish_frequency: 5 
+  # static_map: true
+  rolling_window: false
+  always_send_full_costmap: true
+  # width: 500.0
+  # height: 200.0
+  # resolution: 1
+  
+
+  #in global set the in. ra. bigger
+  inflation_radius: 3.0
+  cost_scaling_factor: 3.0

@@ -1,0 +1,9 @@
+float64 posex_from_file
+float64 posey_from_file
+float64 quaternionz_from_file
+float64 quaternionw_from_file
+---
+float64 posex
+float64 posey
+float64 quaternionz
+float64 quaternionw

@@ -1,0 +1,3 @@
+sensor_msgs/Image rgb
+---
+std_msgs/Bool stop
