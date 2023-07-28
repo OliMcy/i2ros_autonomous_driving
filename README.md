@@ -6,22 +6,18 @@ Run following command to install required packages.
 sudo apt install ros-noetic-octomap-rviz-plugins ros-noetic-octomap-server
 sudo apt install ros-noetic-pid ros-noetic-robot-localization
 sudo apt install ros-noetic-smach-ros
+
+
+sudo apt install ros-noetic-octomap-rviz-plugins ros-noetic-octomap-server
+sudo apt-get install ros-noetic-navigation
+sudo apt-get install ros-noetic-teb-local-planner
+sudo apt-get install ros-noetic-ackermann-msgs
 ```
 
-#  pid tuning
-## useful command
+#  launch command
 ```shell
-roslaunch simulation simulation.launch # launch main process
-rostopic pub /target_twist geometry_msgs/Twist '{linear: {x: 0.5, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0}}' -r 100 # set pid target linear velocity
-rostopic echo /stop_signal # show wether to stop
-rostopic pub perception/traffic_state std_msgs/Bool "true" -r 100 # set traffic light state to red
-rostopic pub perception/traffic_state std_msgs/Bool "false" -r 100 # set traffic light state to green
-rostopic pub /pid_enable std_msgs/Bool "false" # to disable pid controll and enable manually control (stop car firstly!!!)
+roslaunch simulation simulation.launch 
 ```
-## rqt_plot
-`target_linear_velocity`
-`current_linear_velocity`
-`linear_acc`
 
 # Getting Started
 
