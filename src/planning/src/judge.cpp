@@ -143,7 +143,6 @@ void dealPose(const geometry_msgs::PoseStamped& curr_state){
     x = curr_state.pose.position.x;
     y = curr_state.pose.position.y;
 }
-
 int main(int argc, char* argv[]){
   //The matrix for global-points
   double along_y = std::sqrt(2.0)/2.0;
@@ -151,20 +150,20 @@ int main(int argc, char* argv[]){
 {8.66, -62.88, 0.999798, 0.02009},
 {-17.0, -62.88, 0.999798, 0.02009},
 {-40.29, -55.87, 0.92417, 0.38196},
-{-51.105, -33.44, along_y, along_y},
-{-52.54, -14.56, along_y, along_y},
-{-53.00, 10.00, along_y, along_y},    // *point1!!! along_y
-{-53.00, 24.00, along_y, along_y},    // interpo along_y
-{-53.00, 39.00, along_y, along_y},    // along_y
-{-52.38, 53.81, along_y, along_y},    // along_y
-{-53.00, 70.00, along_y, along_y},    // *point2!!! interpo along_y
-{-52.34, 85.00, along_y, along_y},    // interpo along_y
-{-52.30, 104.49, along_y, along_y},
-{-52.30, 116.00, along_y, along_y},   // interpo along_y
+{-52.30, -33.44, along_y, along_y},
+{-52.30, -14.56, along_y, along_y},
+{-52.30, 10.00, along_y, along_y},    // *point1!!! along_y
+{-52.30, 24.00, along_y, along_y},    // interpo along_y
+{-52.30, 39.00, along_y, along_y},    // along_y
+{-51.0, 53.81, along_y, along_y},    // along_y
+{-52.00, 70.00, along_y, along_y},    // *point2!!! interpo along_y
+{-52.00, 85.00, along_y, along_y},    // interpo along_y
+{-52.00, 104.49, along_y, along_y},
+{-52.00, 116.00, along_y, along_y},   // interpo along_y
 {-38.45, 122.13, 0.00648, 0.99998},
 {-14.00, 123.00, 0.01472, 0.99989},
-{-4.61, 131.57, along_y, along_y},
-{-4.57, 167.98, along_y, along_y},
+{-4.5, 131.57, along_y, along_y},
+{-4.3, 167.98, along_y, along_y},
 {-2.86, 209.70, along_y, along_y},
 {-13.64, 229.72, -0.99999, 0.00111},
 {-30.33, 229.10, -0.99994, 0.10758},
@@ -219,7 +218,7 @@ int main(int argc, char* argv[]){
   while(ros::ok()){
   ROS_INFO("tolerance is %f, current is (%d,%d),setted point:%d.",tol,static_cast<int>(x),static_cast<int>(y),counter);
      tol = abs(x - goal.request.posex_from_file) + abs(y - goal.request.posey_from_file);
-      if (tol < 2.5){
+      if (tol < 8){
         counter++;
         if(counter >= gloPoints.size()) break;
         goal.request.posex_from_file = gloPoints[counter][0];
