@@ -139,7 +139,7 @@
 double x = 0.0; // define global variant, for current pose
 double y = 0.0;
 
-bool stop_signal = true;
+bool stop_signal = false;
 int counter = 0;
 
 double distance(const std::vector<double>& p1, const std::vector<double>& p2) {
@@ -198,7 +198,11 @@ int main(int argc, char* argv[]){
   std::vector<std::vector<double>> gloPoints = 
   {
     //1
-    {8.66, -63.88},    /************** begin!*/
+
+    {5.66, -63.88},    /************** begin!*/
+    {5.06, -63.88},    /************** begin!*/
+    // {8.66, -63.88}, 
+
     {-27.0, -63.88},  /*   go straight      */
     // 2
     {-35.7, -62.16},  /* big turn right*/
