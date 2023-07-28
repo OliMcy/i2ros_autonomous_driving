@@ -17,6 +17,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy 
   std_msgs 
   geometry_msgs 
+  ackermann_msgs
   mav_msgs
   eigen_conversions
   tf_conversions

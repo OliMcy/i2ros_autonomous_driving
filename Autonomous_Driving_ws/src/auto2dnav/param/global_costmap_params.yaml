@@ -1,0 +1,49 @@
+# global_costmap:
+#   plugins: 
+#       - {name: static_layer,       type: "costmap_2d::StaticLayer"}
+#       - {name: inflation_layer,         type: "costmap_2d::InflationLayer"}
+#       # - {name: obstacle_layer,     type: "costmap_2d::ObstacleLayer"}
+#   # footprint: [[-2, -1], [-2, 1], [2, 1], [2, -1]]
+
+#   inflation_radius: 1
+#   global_frame: world
+#   robot_base_frame: base_link
+#   use_dijkstra: true
+#   use_quadratic: true
+#   use_grid_path: false
+#   update_frequency: 5.0
+#   # static_map: true
+#   # rolling_window: true
+#   always_send_full_costmap: true
+#   publish_frequency: 5.0
+#   # width: 500.0
+#   # height: 200.0
+#   # resolution: 0.5
+#   cost_factor: 0.55
+#   neutral_cost: 66
+#   lethal_cost: 253
+  
+  # cost_scaling_factor: 3.0
+
+global_costmap:
+  plugins: 
+      - {name: static_layer,       type: "costmap_2d::StaticLayer"}
+      - {name: inflation_layer,         type: "costmap_2d::InflationLayer"}
+      # - {name: obstacle_layer,     type: "costmap_2d::ObstacleLayer"}
+  footprint: [[-2, -2], [-2, 2], [2, 2], [2, -2]]
+  global_frame: world
+  robot_base_frame: base_link
+  update_frequency: 1.0
+  # static_map: true
+  # rolling_window: true
+  always_send_full_costmap: true
+  publish_frequency: 1.0
+  # width: 500.0
+  # height: 200.0
+  resolution: 2
+  # cost_factor: 0.55
+  # inflation_radius: 2
+  # cost_scaling_factor: 3.0
+
+
+

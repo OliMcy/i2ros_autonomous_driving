@@ -1,0 +1,6 @@
+<launch>
+    <include file="$(find auto2dnav)/param/move_base.xml" />
+
+    <node pkg="auto2dnav" type="cmd_vel_to_ackermann_drive.py" name="cmd_vel_to_ackermann_drive" output="screen"/>
+
+</launch>

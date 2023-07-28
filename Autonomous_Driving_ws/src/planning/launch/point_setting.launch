@@ -1,0 +1,4 @@
+<launch>
+<node pkg = "planning" type = "sender" name = "my_sender" output = "screen"/>
+<node pkg = "planning" type = "judge" name = "my_judge" output = "screen"/>
+</launch>
