@@ -17,6 +17,7 @@ class controllerNode {
   ros::Subscriber omega_pid_effort_sub;
   ros::Subscriber traffic_state_sub;
   ros::Subscriber breaking_sub;
+  ros::Subscriber current_v_sub;
 
   ros::Publisher car_commands_pub;
 
@@ -35,6 +36,7 @@ public:
         nh.subscribe("linear_acc", 1, &controllerNode::updateLinearAcc, this);
     omega_pid_effort_sub = nh.subscribe(
         "turning_angle", 1, &controllerNode::updateTurningAngle, this);
+    current_v_sub = nh.subscribe("current_linear_velocity",1,&controllerNode::resetTurningAngle, this);
     car_commands_pub = nh.advertise<mav_msgs::Actuators>("car_commands", 1);
 
     command_timer =
@@ -45,7 +47,13 @@ public:
 
   // void updateOmega(geometry_msgs::Twist twist) { omega = twist.angular.z; }
 
-  void updateLinearAcc(std_msgs::Float64 effort) { linear_acc = effort.data; }
+  void resetTurningAngle(std_msgs::Float64 cur_v)
+  {
+    if(cur_v.data < 0)
+      turning_angle = 0;
+  }
+
+  void updateLinearAcc(std_msgs::Float64 effort) { linear_acc = 1.5 * effort.data; }
   void updateTurningAngle(std_msgs::Float64 effort) {
     turning_angle -= 0.1 * (effort.data);
     if( turning_angle < -1.2)
