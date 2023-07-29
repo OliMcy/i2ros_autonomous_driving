@@ -16,7 +16,7 @@ class Sender{
     Sender(){
         serv = nh.advertiseService("set_pose",&Sender::doRequ,this);
         // pub = nh.advertise<move_base_msgs::MoveBaseActionGoal>("/move_base/goal",1);
-        pub = nh.advertise<geometry_msgs::PointStamped>("/clicked_point",1);
+        pub = nh.advertise<geometry_msgs::PointStamped>("/received_waypoints",1);
 
     }
 

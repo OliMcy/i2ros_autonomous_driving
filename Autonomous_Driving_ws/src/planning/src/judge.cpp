@@ -2,6 +2,7 @@
 #include "planning/PlanGoal.h"
 #include "std_msgs/Bool.h"
 #include "geometry_msgs/PoseStamped.h"
+#include <nav_msgs/Odometry.h>
 #include <vector>
 #include <cmath> // for output pose in while-loop
 
@@ -26,10 +27,11 @@ double distance(const std::vector<double>& p1, const std::vector<double>& p2) {
   return sqrt(sum);
 }
 
-void dealPose(const geometry_msgs::PoseStamped& curr_state){
+void dealPose(const nav_msgs::Odometry& cur_state){
     // ROS_INFO("what I get is %f.",curr_state.pose.position.x);
-    x = curr_state.pose.position.x;
-    y = curr_state.pose.position.y;
+    x = cur_state.pose.pose.position.x;
+    y = cur_state.pose.pose.position.y;
+
 }
 
 void updateStopSignal(const std_msgs::Bool& traffic_light_state) {
@@ -144,7 +146,7 @@ int main(int argc, char* argv[]){
   ros::init(argc,argv,"judge");
   ros::NodeHandle nh;
 
-  ros::Subscriber get_cu = nh.subscribe("true_pose",1,&dealPose);
+  ros::Subscriber get_cu = nh.subscribe("odom",1,&dealPose);
   ros::Subscriber traffic_state_sub = nh.subscribe("/perception/traffic_state", 1,&updateStopSignal);
   double tol; // define tolerance
   double distance_to_current_path_end;
