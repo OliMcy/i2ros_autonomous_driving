@@ -1,5 +1,5 @@
 <launch>
-  <node name="rqt_graph" pkg="rqt_graph" type="rqt_graph"> </node>
+  <!-- <node name="rqt_graph" pkg="rqt_graph" type="rqt_graph"> </node> -->
   <node name="rqt_reconfigure" pkg="rqt_reconfigure" type="rqt_reconfigure"> </node>
   <node name="rqt_plot" pkg="rqt_plot" type="rqt_plot"> </node>
 </launch>

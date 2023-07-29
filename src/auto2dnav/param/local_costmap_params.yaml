@@ -11,5 +11,5 @@ local_costmap:
   
 
   #in local set the in. ra. smaller
-  inflation_radius: 2.0
+  inflation_radius: 1.5
   cost_scaling_factor: 3.0

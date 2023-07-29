@@ -148,22 +148,24 @@ int main(int argc, char* argv[]){
   double along_y = std::sqrt(2.0)/2.0;
   std::vector<std::vector<double>> gloPoints = {
 {8.66, -62.88, 0.999798, 0.02009},
-{-17.0, -62.88, 0.999798, 0.02009},
-{-40.29, -55.87, 0.92417, 0.38196},
-{-52.30, -33.44, along_y, along_y},
+{-17.0, -60.0, 0.999798, 0.02009},
+{-40.29, -58.0, 0.92417, 0.38196},
+{-52.00, -33.44, along_y, along_y},
 {-52.30, -14.56, along_y, along_y},
-{-52.30, 10.00, along_y, along_y},    // *point1!!! along_y
-{-52.30, 24.00, along_y, along_y},    // interpo along_y
-{-52.30, 39.00, along_y, along_y},    // along_y
+{-51.00, 10.00, along_y, along_y},    // *point1!!! along_y
+{-51.00, 24.00, along_y, along_y},    // interpo along_y
+{-51.30, 39.00, along_y, along_y},    // along_y
 {-51.0, 53.81, along_y, along_y},    // along_y
-{-52.00, 70.00, along_y, along_y},    // *point2!!! interpo along_y
-{-52.00, 85.00, along_y, along_y},    // interpo along_y
-{-52.00, 104.49, along_y, along_y},
-{-52.00, 116.00, along_y, along_y},   // interpo along_y
-{-38.45, 122.13, 0.00648, 0.99998},
-{-14.00, 123.00, 0.01472, 0.99989},
+{-51.00, 70.00, along_y, along_y},    // *point2!!! interpo along_y
+{-51.00, 85.00, along_y, along_y},    // interpo along_y
+{-51.0, 104.49, along_y, along_y},
+{-51.0, 116.00, along_y, along_y},   // interpo along_y
+{-38.45, 124.0, 0.00648, 0.99998},
+{-14.00, 124.00, 0.01472, 0.99989},
 {-4.5, 131.57, along_y, along_y},
-{-4.3, 167.98, along_y, along_y},
+{-4.5, 150.98, along_y, along_y},
+{-4.0, 170.98, along_y, along_y},
+{-4.0, 190.98, along_y, along_y},
 {-2.86, 209.70, along_y, along_y},
 {-13.64, 229.72, -0.99999, 0.00111},
 {-30.33, 229.10, -0.99994, 0.10758},

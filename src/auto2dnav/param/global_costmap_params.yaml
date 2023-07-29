@@ -2,7 +2,7 @@ global_costmap:
   plugins: 
       - {name: static_layer,       type: "costmap_2d::StaticLayer"}
       - {name: inflation_layer,       type: "costmap_2d::InflationLayer"}
-  footprint: [[-1.5, -1], [-1.5, 1], [1.5, 1], [1.5, -1]]
+  footprint: [[-1.5, -0.9], [-1.5, 0.9], [1.5, 0.9], [1.5, -0.9]]
   global_frame: world
   robot_base_frame: base_link
   update_frequency: 5
@@ -16,5 +16,5 @@ global_costmap:
   
 
   #in global set the in. ra. bigger
-  inflation_radius: 3.0
+  inflation_radius: 2.6
   cost_scaling_factor: 3.0
