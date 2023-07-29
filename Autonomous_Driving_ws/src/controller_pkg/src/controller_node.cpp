@@ -62,7 +62,6 @@ public:
   controllerNode():hz(100.0){
       
       current_state = nh.subscribe("odom", 1, &controllerNode::onCurrentState, this);
-      command_vel = nh.subscribe("cmd_vel", 1, &controllerNode::onCurrentCmdVel, this);
       ackermann_cmd = nh.subscribe("ackermann_cmd", 1, &controllerNode::onAckermannCmd, this);
       car_commands = nh.advertise<mav_msgs::Actuators>("car_commands", 1);
       timer = nh.createTimer(ros::Rate(hz), &controllerNode::controlLoop, this);
@@ -83,13 +82,6 @@ public:
     // Rotate omega
     omega = R.transpose()*omega;
     // ROS_INFO_STREAM(omega);
-  }
-
-  void onCurrentCmdVel(const geometry_msgs::Twist& cmd_velocity){
-      cmd_vel_linear_current << cmd_velocity.linear.x,cmd_velocity.linear.y,cmd_velocity.linear.z;
-      cmd_vel_angular << cmd_velocity.angular.x,cmd_velocity.angular.y,cmd_velocity.angular.z;
-
-      cmd_vel_linear_old = cmd_vel_linear_current;
   }
 
   void onAckermannCmd(const ackermann_msgs::AckermannDriveStamped& ackermann_cmd){

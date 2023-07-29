@@ -294,7 +294,7 @@ Visualization Manager:
       Topic: /move_base_simple/goal
     - Class: rviz/PublishPoint
       Single click: true
-      Topic: /clicked_point
+      Topic: /received_waypoints
   Value: true
   Views:
     Current:

@@ -17,7 +17,7 @@ class VelocityMapMaker:
                  load_from_txt = None, use_potential=False):
         print "Min speed: ", min_speed
         self.min_speed = float(min_speed)
-        self.clicked_point = None
+        self.received_waypoints = None
         self.load_from_txt = load_from_txt
         self.accepted_waypoint = False
         self.accepting_waypoints = False
