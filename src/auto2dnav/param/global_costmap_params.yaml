@@ -16,5 +16,5 @@ global_costmap:
   
 
   #in global set the in. ra. bigger
-  inflation_radius: 2.6
+  inflation_radius: 2.0
   cost_scaling_factor: 3.0
