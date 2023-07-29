@@ -1,3 +1,3 @@
-map_topic: "/projected_map"
+map_topic: "/perception/projected_map"
 # rolling_window: false
 # inflation_radius: 1

@@ -1,6 +1,7 @@
 local_costmap:
   plugins: 
       - {name: static_layer,       type: "costmap_2d::StaticLayer"}
+      - {name: inflation_layer,         type: "costmap_2d::InflationLayer"}
 
   global_frame: world
   robot_base_frame: base_link

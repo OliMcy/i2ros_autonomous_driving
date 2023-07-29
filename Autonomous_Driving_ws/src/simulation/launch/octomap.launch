@@ -12,9 +12,10 @@
 		<param name="sensor_model/max_range" value="30.0" />
 		
 <!-- data source to integrate (PointCloud2) -->
-		<remap from="cloud_in" to="/realsense/depth/pointcloud" /> 
-		<remap from="/octomap_binary" to="/realsense/octomap_binary" />  
-		<remap from="/octomap_full" to="/realsense/octomap_full" />   
+		<remap from="cloud_in" to="/unity_ros/OurCar/Sensors/DepthCamera/pointcloud" /> 
+		<remap from="/octomap_binary" to="/perception/octomap_binary" />  
+		<remap from="/octomap_full" to="/perception/octomap_full" />   
+		<remap from="/projected_map" to="/perception/projected_map" />   
 		<param name="base_frame_id" type="string" value="$(arg name)/true_body" />
 
 <!-- min and max height of occupied cells to be consider in the final map -->
