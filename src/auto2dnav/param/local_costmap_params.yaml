@@ -7,9 +7,9 @@ local_costmap:
   rolling_window: true
   width: 30.0
   height: 30.0
-  resolution: 1
+  resolution: 0.5
   
 
   #in local set the in. ra. smaller
-  inflation_radius: 2.0
+  inflation_radius: 1.0
   cost_scaling_factor: 3.0
