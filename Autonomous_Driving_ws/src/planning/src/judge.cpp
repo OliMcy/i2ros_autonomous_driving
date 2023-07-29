@@ -83,7 +83,7 @@ int main(int argc, char* argv[]){
     // 4
     {-52.26, 39.64},
     // 5
-    { -52.70, 121.16},
+    { -52.70, 120.16},
     //trafic light
     {-14.26, 122.87},
     {-14.00, 122.87},
@@ -91,8 +91,8 @@ int main(int argc, char* argv[]){
     // 6
     { -5.21, 123.36},
     //trafic light
-    {-3.16, 220.40},
-    {-3.16, 220.90},
+    {-3.16, 221.40},
+    {-3.16, 221.90},
 
     // 7
     { -3.23, 227.98},
@@ -108,16 +108,16 @@ int main(int argc, char* argv[]){
     // 10
      {-52.04, 46.51},
     // traffic light
-    {-12.77, 45.32},
-    {-12.06, 45.32},
+    {-8.77, 45.32},
+    {-8.06, 45.32},
 
 
     // 11
     {-4.41, 44.37},
     // 12
-    {-4.44, 20.33},
+    {-3.44, 20.33},
     // 13
-    {-2.30, -2.79},
+    {-3.0, -5.79},
     //14 traffic light
     {-2.30, -59.00},
     {-2.30, -59.50},
@@ -185,7 +185,7 @@ int main(int argc, char* argv[]){
 
     distance_to_current_path_end = sqrt(pow(x - gloPoints[path_end_indices[path_counter-1]][0],2) + pow(y - gloPoints[path_end_indices[path_counter-1]][1],2));
 
-    if (path_counter != 0 && distance_to_current_path_end < 3 && stop_signal == false){
+    if (path_counter != 0 && distance_to_current_path_end < 2 && stop_signal == false){
       
       if(path_counter >= path_end_indices.size()) break;
 
