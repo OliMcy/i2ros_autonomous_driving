@@ -18,9 +18,6 @@
     <rosparam file="$(find auto2dnav)/param/static_map_params.yaml"
                 command="load"
                 ns="global_costmap/static_layer" />
-    <rosparam file="$(find auto2dnav)/param/static_map_params.yaml"
-                command="load"
-                ns="global_costmap/static_layer" />
    <rosparam file="$(find auto2dnav)/param/static_map_params.yaml"
                 command="load"
                 ns="local_costmap/static_layer" />
