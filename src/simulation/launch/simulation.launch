@@ -78,6 +78,7 @@
   </include>
 
   <include file = "$(find auto2dnav)/launch/move_base.launch"/>
+  <include file = "$(find planning)/launch/point_setting.launch"/>
   
   <node pkg="rviz" type="rviz" name="rviz" args="-d $(find simulation)/rviz/AutonomousCar.rviz" />
 </launch>
