@@ -141,9 +141,9 @@ private:
 
     corrupted_state.twist.twist = corrupt_twist.twist;
     corrupted_state.pose.pose = pose_corrupted_.pose;
-    corrupted_state.pose.covariance = {std::pow(pose_white_sigma_,2), 0, 0, 0, 0, 0,
-                                       0, std::pow(pose_white_sigma_,2), 0, 0, 0, 0,
-                                       0, 0, std::pow(pose_white_sigma_,2), 0, 0, 0,
+    corrupted_state.pose.covariance = {std::pow(pos_white_sigma_,2), 0, 0, 0, 0, 0,
+                                       0, std::pow(pos_white_sigma_,2), 0, 0, 0, 0,
+                                       0, 0, std::pow(pos_white_sigma_,2), 0, 0, 0,
                                        0, 0, 0, 0.1, 0, 0,
                                        0, 0, 0, 0, 0.1, 0,
                                        0, 0, 0, 0, 0, 0.1};
