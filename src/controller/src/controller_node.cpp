@@ -48,10 +48,10 @@ public:
   void updateLinearAcc(std_msgs::Float64 effort) { linear_acc = effort.data; }
   void updateTurningAngle(std_msgs::Float64 effort) {
     turning_angle -= 0.1 * (effort.data);
-    if( turning_angle < -1)
-        turning_angle = -1;
-    else if(turning_angle > 1)
-        turning_angle = 1;
+    if( turning_angle < -1.2)
+        turning_angle = -1.2;
+    else if(turning_angle > 1.2)
+        turning_angle = 1.2;
   }
 
   void controlLoop(const ros::TimerEvent &t) {

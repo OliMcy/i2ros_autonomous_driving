@@ -1,5 +1,5 @@
 <launch>
 <node pkg = "planning" type = "sender" name = "my_sender" output = "screen"/>
-<arg name="node_start_delay" default="1.0" />  
+<arg name="node_start_delay" default="5.0" />  
 <node pkg = "planning" type = "judge" name = "my_judge" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' " output = "screen"/>
 </launch>

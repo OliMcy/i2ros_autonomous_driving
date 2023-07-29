@@ -2,7 +2,7 @@ global_costmap:
   plugins: 
       - {name: static_layer,       type: "costmap_2d::StaticLayer"}
       - {name: inflation_layer,       type: "costmap_2d::InflationLayer"}
-  footprint: [[-1.5, -1], [-1.5, 1], [1.5, 1], [1.5, -1]]
+  footprint: [[-1.5, -0.9], [-1.5, 0.9], [1.5, 0.9], [1.5, -0.9]]
   global_frame: world
   robot_base_frame: base_link
   update_frequency: 5
