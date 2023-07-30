@@ -2,7 +2,6 @@
   send next pose point.*/
 
 
-
 #include <ros/ros.h>
 #include "planning/PlanGoal.h"
 #include "geometry_msgs/PoseStamped.h"
@@ -12,15 +11,22 @@
 double x = 0.0; // define global variant, for current pose
 double y = 0.0;
 
+/*get current pose, to global x,y.*/
 void dealPose(const geometry_msgs::PoseStamped& curr_state){
-    // ROS_INFO("what I get is %f.",curr_state.pose.position.x);
     x = curr_state.pose.position.x;
     y = curr_state.pose.position.y;
 }
+
+
 int main(int argc, char* argv[]){
-  //The matrix for global-points
-  double along_y = std::sqrt(2.0)/2.0;
-  std::vector<std::vector<double>> gloPoints = {
+
+// set strictly horizontal direction for the car. (used in the qudternion when drive towards left or right)
+double along_y = std::sqrt(2.0)/2.0;
+
+
+//The matrix for global-points
+  
+std::vector<std::vector<double>> gloPoints = {
 {8.66, -62.88, 0.999798, 0.02009},
 {-17.0, -62.0, 0.999798, 0.02009},
 {-40.29, -58.0, 0.92417, 0.38196},
@@ -66,33 +72,34 @@ int main(int argc, char* argv[]){
 {-9.91, -62.84, 0.99999, 0.00074},
   };
 
-    ros::init(argc,argv,"judge");
-    ros::NodeHandle nh;
+  ros::init(argc,argv,"judge");
+  ros::NodeHandle nh;
 
-    ros::Subscriber get_cu = nh.subscribe("true_pose",1,&dealPose);
-    double tol; // define tolerance
+  ros::Subscriber get_cu = nh.subscribe("true_pose",1,&dealPose);
+  double tol; // define tolerance
 
-    /*service communication for pose setting, here is the client.*/
-    ros::ServiceClient cli = nh.serviceClient<planning::PlanGoal>("set_pose");
-    ros::service::waitForService("set_pose");
-    
+  //service communication for pose setting, here is the client.
+  ros::ServiceClient cli = nh.serviceClient<planning::PlanGoal>("set_pose");
+  ros::service::waitForService("set_pose");
+  
 
-    planning::PlanGoal goal;
-    uint8_t counter = 0;
+  planning::PlanGoal goal;
+  uint8_t counter = 0;
 
-    //send the first point
-    goal.request.posex_from_file = gloPoints[counter][0];
-    goal.request.posey_from_file = gloPoints[counter][1];
-    goal.request.quaternionz_from_file = gloPoints[counter][2];
-    goal.request.quaternionz_from_file = gloPoints[counter][3];
-     bool flag = cli.call(goal);
-      if(flag){
-          ROS_INFO("pose successfully set!");
-      }else{
-          ROS_INFO("pose setting failed...");
-          return 1;
-      }
-    
+  //send the first point
+  goal.request.posex_from_file = gloPoints[counter][0];
+  goal.request.posey_from_file = gloPoints[counter][1];
+  goal.request.quaternionz_from_file = gloPoints[counter][2];
+  goal.request.quaternionz_from_file = gloPoints[counter][3];
+    bool flag = cli.call(goal);
+    if(flag){
+        ROS_INFO("pose successfully set!");
+    }else{
+        ROS_INFO("pose setting failed...");
+        return 1;
+    }
+  
+  //set the rest points
   while(ros::ok()){
   ROS_INFO("tolerance is %f, current is (%d,%d),setted point:%d.",tol,static_cast<int>(x),static_cast<int>(y),counter);
      tol = abs(x - goal.request.posex_from_file) + abs(y - goal.request.posey_from_file);
