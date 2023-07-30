@@ -70,11 +70,11 @@
   <node pkg="tf2_ros" type="static_transform_publisher"
         name="depth_camera_frame_to_body"      args="0 0 -0.0 -0 0 -1.5707963 /true_body /OurCar/Sensors/DepthCamera" />
 
-  <include file="$(find simulation)/launch/point_cloud.launch" >
+  <include file="$(find perception_pkg)/launch/point_cloud.launch" >
       <arg name="name" value="OurCar" />
   </include>
 
-  <include file="$(find simulation)/launch/octomap.launch">
+  <include file="$(find perception_pkg)/launch/octomap.launch">
       <arg name="name" value="OurCar" />
   </include>
   

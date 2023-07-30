@@ -19,7 +19,8 @@
     <arg name="view_image" default="true"/>
 
     <!-- ROS topics -->
-    <arg name="input_image_topic" default="/realsense/rgb/left_image_raw"/>
+    <arg name="input_image_topic" default="/unity_ros/OurCar/Sensors/RGBCameraLeft/image_raw
+"/>
     <arg name="output_topic" default="/perception/detections"/>
     <arg name="output_traffic_state_topic" default="/perception/traffic_state"/>
 

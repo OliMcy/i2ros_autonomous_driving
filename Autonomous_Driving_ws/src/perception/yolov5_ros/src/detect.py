@@ -12,8 +12,9 @@ import sys
 from rostopic import get_topic_type
 
 from sensor_msgs.msg import Image, CompressedImage
-from detection_msgs.msg import BoundingBox, BoundingBoxes
-from std_msgs.msg import Bool
+# from detection_msgs.msg import BoundingBox, BoundingBoxes
+# from std_msgs.msg import Bool
+from perception_msgs.msg import BoundingBox, BoundingBoxes, TrafficState
 
 
 # add yolov5 submodule to path
@@ -81,6 +82,10 @@ class Yolov5Detector:
         self.img_size = check_img_size(self.img_size, s=self.stride)
 
         # Half
+        '''
+        Description: Models are converted to half-precision floating point numbers,
+                     which can improve memory usage efficiency  
+        '''
         self.half = rospy.get_param("~half", False)
         self.half &= (
             self.pt or self.jit or self.onnx or self.engine
@@ -89,7 +94,9 @@ class Yolov5Detector:
             self.model.model.half() if self.half else self.model.model.float()
         bs = 1  # batch_size
         cudnn.benchmark = True  # set True to speed up constant image size inference
-        self.model.warmup()  # warmup        
+        # warmup 
+        # Warmup model by running inference once
+        self.model.warmup()         
         
         # Initialize subscriber to Image/CompressedImage topic
         input_image_type, input_image_topic, _ = get_topic_type(rospy.get_param("~input_image_topic"), blocking = True)
@@ -111,7 +118,7 @@ class Yolov5Detector:
 
         # Initialize traffic state publisher
         self.traffic_state_pub = rospy.Publisher(
-            rospy.get_param("~output_traffic_state_topic"), Bool, queue_size=1
+            rospy.get_param("~output_traffic_state_topic"), TrafficState, queue_size=1
         )
 
         # Initialize image publisher
@@ -125,7 +132,18 @@ class Yolov5Detector:
         self.bridge = CvBridge()
 
     def callback(self, data):
-        """adapted from yolov5/detect.py"""
+        """
+        Description: Callback function of subscriber
+        
+        Output: 
+        Three topics are published:
+        1. /perception/detections (perception_msgs/BoundingBoxes):
+            contains the bounding boxes of the detected objects
+        2. /perception/traffic_state (perception_msgs/TrafficState): 
+            contains the traffic state of the detected objects
+        3. /perception/boundingbox_image(sensor_msgs/Image):
+            contains the image with bounding boxes
+        """
         # print(data.header)
         if self.compressed_input:
             im = self.bridge.compressed_imgmsg_to_cv2(data, desired_encoding="bgr8")
@@ -162,6 +180,7 @@ class Yolov5Detector:
         bounding_boxes.image_header = data.header
         
         annotator = Annotator(im0, line_width=self.line_thickness, example=str(self.names))
+
         if len(det):
             # Rescale boxes from img_size to im0 size
             det[:, :4] = scale_coords(im.shape[2:], det[:, :4], im0.shape).round()
@@ -169,7 +188,7 @@ class Yolov5Detector:
             # Write results
             for *xyxy, conf, cls in reversed(det): # the bounding box with higher confidence will be processed first
                 bounding_box = BoundingBox()
-                traffic_state = Bool()
+                traffic_state = TrafficState()
                 c = int(cls)
                 # Fill in bounding box message
                 bounding_box.Class = self.names[c]
@@ -180,14 +199,18 @@ class Yolov5Detector:
                 bounding_box.ymax = int(xyxy[3])
 
                 # Fill in traffic state message
-                traffic_state.data = self.names[c] == "Red"
-                rospy.loginfo("The traffic state is: %s", traffic_state.data)
+                # Green: 0, Red: 1, Yellow: 2
+                traffic_state.state = self.names[c] == "Red"
+                rospy.loginfo("The traffic state is: %s", traffic_state.state)
 
                 # Publish traffic state
+                # The range is 0.4 to 0.6 of the image width 
+                # Only one traffic light in the middle is used to sentence the traffic state
                 if bounding_box.xmin > 0.4 * im0.shape[1] and bounding_box.xmax < 0.6 * im0.shape[1]:
                     self.traffic_state_pub.publish(traffic_state)
 
-                # Add to bounding boxes message if the box is in the middle of the image
+                # The range is 0.3 to 0.7 of the image width and the range is 0 to 0.5 of the image height
+                # Multiple bounding boxes can be published at the same time.
                 if bounding_box.xmin > 0.3 * im0.shape[1] and bounding_box.xmax < 0.7 * im0.shape[1] and bounding_box.ymax < 0.5 * im0.shape[0]:
                     bounding_boxes.bounding_boxes.append(bounding_box)
 
@@ -197,7 +220,6 @@ class Yolov5Detector:
                     label = f"{self.names[c]} {conf:.2f}"
                     annotator.box_label(xyxy, label, color=colors(c, True))       
 
-                
                 ### POPULATE THE DETECTION MESSAGE HERE
 
             # Stream results
@@ -216,7 +238,8 @@ class Yolov5Detector:
 
     def preprocess(self, img):
         """
-        Adapted from yolov5/utils/datasets.py LoadStreams class
+        Input:
+        img: It is the original image without preprocessing.
 
         Output:
         im: It is the preprocessed image. im is a numpy array
