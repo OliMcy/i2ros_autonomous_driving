@@ -1,6 +1,5 @@
 <launch>
-
-<arg name="name" default="OurCar" />
+  <arg name="name" default="OurCar" />
   <node pkg="nodelet" type="nodelet" name="$(arg name)_nodelet_manager" args="manager" />
 <!-- 
 Subscribed Topics:
@@ -11,12 +10,11 @@ camera_info (sensor_msgs/CameraInfo)
 image_rect (sensor_msgs/Image)
 
     Rectified depth image. 
-
+s
     Published Topics:
 points (sensor_msgs/PointCloud2)
 
     XYZ point cloud. 
-
 
  -->
   <node pkg="nodelet" type="nodelet" name="$(arg name)_nodelet"
