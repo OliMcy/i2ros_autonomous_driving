@@ -18,6 +18,7 @@ class Sender{
 
     }
 
+    /*publish goal points to move_base/goal topic*/
     bool doRequ(planning::PlanGoal::Request &req,
                 planning::PlanGoal::Response &resp){
             
