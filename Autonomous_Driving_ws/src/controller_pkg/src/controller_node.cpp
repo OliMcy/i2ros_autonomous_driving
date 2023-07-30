@@ -68,7 +68,6 @@ public:
   }
 
   void onCurrentState(const nav_msgs::Odometry& cur_state){
-      
     x << cur_state.pose.pose.position.x,cur_state.pose.pose.position.y,cur_state.pose.pose.position.z;
     v << cur_state.twist.twist.linear.x,cur_state.twist.twist.linear.y,cur_state.twist.twist.linear.z;
     omega << cur_state.twist.twist.angular.x,cur_state.twist.twist.angular.y,cur_state.twist.twist.angular.z;
@@ -95,8 +94,8 @@ public:
     mav_msgs::Actuators msg;
 
     msg.angular_velocities.resize(4);
-    msg.angular_velocities[0] = -(vel_ist[0]-ackermann_cmd_vel)*5; // Acceleration
-    msg.angular_velocities[1] = -ackermann_cmd_steering_angle*2;  // Turning angle
+    msg.angular_velocities[0] = (ackermann_cmd_vel-vel_ist[0])*5; // Acceleration
+    msg.angular_velocities[1] = -ackermann_cmd_steering_angle*1.5;  // Turning angle
     msg.angular_velocities[2] = 0; // Breaking
     msg.angular_velocities[3] = 0;
     car_commands.publish(msg);

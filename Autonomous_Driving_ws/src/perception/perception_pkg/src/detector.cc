@@ -12,9 +12,9 @@
 
 Detector::Detector(ros::NodeHandle &nh) : nh_(nh) {
   pub_traffic_state_ =
-      nh.advertise<std_msgs::Bool>("/perception/traffic_state", 0);
+      nh.advertise<std_msgs::Bool>("/perception/traffic_state", 1);
   pub_BoundingBoxImage_ =
-      nh.advertise<sensor_msgs::Image>("/perception/boundingbox_image", 0);
+      nh.advertise<sensor_msgs::Image>("/perception/boundingbox_image", 1);
   msg_traffic_state_.data = false;
 }
 
