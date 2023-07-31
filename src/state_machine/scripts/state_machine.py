@@ -16,7 +16,7 @@ class DriveState(smach.State):
         """Constructor of the DriveState class"""
         smach.State.__init__(self, outcomes=["stop"])
 
-    def execute(self):
+    def execute(self, userdata):
         """This function is called when the state is active. It publishes the target linear and angular velocities.
 
         Returns:
@@ -45,7 +45,7 @@ class StopState(smach.State):
         """Constructor of the StopState class"""
         smach.State.__init__(self, outcomes=["drive"])
 
-    def execute(self):
+    def execute(self, userdata):
         """This function is called when the state is active. It publishes zero linear and angular velocities to stop the car.
 
         Returns:
