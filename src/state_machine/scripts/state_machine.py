@@ -31,7 +31,12 @@ class DriveState(smach.State):
         # Publish the target velocities until the signal becomes False
         while not signal_value and not rospy.is_shutdown():
             target_v_pub.publish(v)
-            target_omega_pub.publish(omega)
+            if v.data < 0:
+                omega_zero = Float64()
+                omega_zero.data = 0.0
+                target_omega_pub.publish(omega_zero)
+            else:
+                target_omega_pub.publish(omega)
             rate.sleep()
 
         # Transition to the stop state when the signal becomes False
