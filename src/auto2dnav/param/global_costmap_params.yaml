@@ -7,12 +7,8 @@ global_costmap:
   robot_base_frame: base_link
   update_frequency: 5
   publish_frequency: 5 
-  # static_map: true
   rolling_window: false
   always_send_full_costmap: true
-  # width: 500.0
-  # height: 200.0
-  # resolution: 1
   
 
   #in global set the in. ra. bigger
