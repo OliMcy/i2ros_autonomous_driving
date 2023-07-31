@@ -9,6 +9,7 @@
 #include <ros/ros.h>
 #include <sstream>
 #include <vector>
+#include "perception_msgs/TrafficState.h"
 
 class Detector {
 public:
@@ -36,7 +37,8 @@ private:
   ros::ServiceServer service;
   ros::NodeHandle &nh_;
 
-  std_msgs::Bool msg_traffic_state_;
+  //std_msgs::Bool msg_traffic_state_;
+  perception_msgs::TrafficState msg_traffic_state_;
   sensor_msgs::Image msg_RGB_cam_;
   std::vector<uint32_t> area_trafficlights_;
   
