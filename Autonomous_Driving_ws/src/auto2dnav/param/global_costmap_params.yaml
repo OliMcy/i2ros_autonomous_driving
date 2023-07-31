@@ -30,7 +30,7 @@ global_costmap:
       - {name: static_layer,       type: "costmap_2d::StaticLayer"}
       - {name: inflation_layer,         type: "costmap_2d::InflationLayer"}
       # - {name: obstacle_layer,     type: "costmap_2d::ObstacleLayer"}
-  footprint: [[-2, -2], [-2, 2], [2, 2], [2, -2]]
+  footprint: [[-1.5, -1], [-1.5, 1], [1.5, 1], [1.5, -1]]
   global_frame: world
   robot_base_frame: base_link
   update_frequency: 1.0
