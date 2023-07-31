@@ -9,10 +9,14 @@
 
 #define PI M_PI
 
-class controllerNode {
+class ControllerNode {
+  /**
+   * @class ControllerNode
+   * @brief The controller node for the car
+   *
+   */
   ros::NodeHandle nh;
 
-  // ros::Subscriber twist_sub;
   ros::Subscriber linear_pid_effort_sub;
   ros::Subscriber omega_pid_effort_sub;
   ros::Subscriber traffic_state_sub;
@@ -23,46 +27,72 @@ class controllerNode {
 
   double linear_acc;
   double turning_angle;
-  // double omega;
 
   ros::Timer command_timer;
-  ros::Timer breaking_timer;
+
   double hz; // frequency of the main control loop
 public:
-  controllerNode() : hz(1000) {
-    // twist_sub =
-    //     nh.subscribe("target_twist", 1, &controllerNode::updateOmega, this);
+  ControllerNode() : hz(1000) {
+    /**
+     * @brief initialize the controller node
+     */
+
+    // Subscribers
     linear_pid_effort_sub =
-        nh.subscribe("linear_acc", 1, &controllerNode::updateLinearAcc, this);
+        nh.subscribe("linear_acc", 1, &ControllerNode::updateLinearAcc, this);
     omega_pid_effort_sub = nh.subscribe(
-        "turning_angle", 1, &controllerNode::updateTurningAngle, this);
-    current_v_sub = nh.subscribe("current_linear_velocity",1,&controllerNode::resetTurningAngle, this);
+        "turning_angle", 1, &ControllerNode::updateTurningAngle, this);
+    current_v_sub = nh.subscribe("current_linear_velocity", 1,
+                                 &ControllerNode::resetTurningAngle, this);
+
+    // Publishers
     car_commands_pub = nh.advertise<mav_msgs::Actuators>("car_commands", 1);
 
+    // Timers
     command_timer =
-        nh.createTimer(ros::Rate(hz), &controllerNode::controlLoop, this);
+        nh.createTimer(ros::Rate(hz), &ControllerNode::controlLoop, this);
 
+    // Initialize variables
     turning_angle = 0;
   }
 
-  // void updateOmega(geometry_msgs::Twist twist) { omega = twist.angular.z; }
-
-  void resetTurningAngle(std_msgs::Float64 cur_v)
-  {
-    if(cur_v.data < 0)
+  void resetTurningAngle(std_msgs::Float64 cur_v) {
+    /**
+     * @brief reset the turning angle to 0 when the car is moving backward
+     *
+     * @param cur_v current linear velocity of the car
+     */
+    if (cur_v.data < 0)
       turning_angle = 0;
   }
 
-  void updateLinearAcc(std_msgs::Float64 effort) { linear_acc = 1.5 * effort.data; }
+  void updateLinearAcc(std_msgs::Float64 effort) {
+    /**
+     * @brief update the linear acceleration of the car
+     *
+     * @param effort the effort from the linear pid controller
+     */
+    linear_acc = 1.5 * effort.data;
+  }
   void updateTurningAngle(std_msgs::Float64 effort) {
+    /**
+     * @brief update the turning angle of the car
+     *
+     * @param effort the effort from the omega pid controller
+     */
     turning_angle -= 0.1 * (effort.data);
-    if( turning_angle < -1.2)
-        turning_angle = -1.2;
-    else if(turning_angle > 1.2)
-        turning_angle = 1.2;
+    if (turning_angle < -1.2)
+      turning_angle = -1.2;
+    else if (turning_angle > 1.2)
+      turning_angle = 1.2;
   }
 
   void controlLoop(const ros::TimerEvent &t) {
+    /**
+     * @brief main control loop
+     *
+     * @param t ros timer event
+     */
     mav_msgs::Actuators msg;
 
     msg.angular_velocities.resize(4);
@@ -76,7 +106,20 @@ public:
 };
 
 int main(int argc, char **argv) {
+  /**
+   * @brief main function
+   *
+   * @param argc
+   * @param argv
+   */
+  // Initialize ROS
   ros::init(argc, argv, "controller_node");
-  controllerNode n;
+
+  // Create our controller object and run it
+  ControllerNode n;
+
+  // Let ROS handle all callbacks
   ros::spin();
+
+  return 0;
 }
