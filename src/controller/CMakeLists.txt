@@ -49,11 +49,9 @@ find_package(
 # Message2.msg )
 
 # Generate services in the 'srv' folder
-add_service_files(FILES traffic_light.srv)
 # add_service_files( FILES Service1.srv Service2.srv )
 
 # Generate actions in the 'action' folder
-generate_messages(DEPENDENCIES sensor_msgs std_msgs)
 # add_action_files( FILES Action1.action Action2.action )
 
 # Generate added messages and services with any dependencies listed here
