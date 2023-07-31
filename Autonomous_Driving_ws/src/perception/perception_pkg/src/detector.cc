@@ -8,14 +8,17 @@
 #include <detector.h>
 #include <sstream>
 #include <vector>
+#include "perception_msgs/TrafficState.h"
 
 
 Detector::Detector(ros::NodeHandle &nh) : nh_(nh) {
+  //pub_traffic_state_ =
+  //    nh.advertise<std_msgs::Bool>("/perception/traffic_state", 1);
   pub_traffic_state_ =
-      nh.advertise<std_msgs::Bool>("/perception/traffic_state", 1);
+      nh.advertise<perception_msgs::TrafficState>("/perception/traffic_state", 1);
   pub_BoundingBoxImage_ =
       nh.advertise<sensor_msgs::Image>("/perception/boundingbox_image", 1);
-  msg_traffic_state_.data = false;
+  msg_traffic_state_.state = false;
 }
 
 void Detector::semeticCallback(const sensor_msgs::ImageConstPtr &sem_img) {
@@ -65,7 +68,7 @@ void Detector::RGBCallback(const sensor_msgs::ImageConstPtr &RGB_img) {
         image_data[area_trafficlights_[i + 1]] < 100) {
         ROS_INFO_STREAM("Red Light!");
       // set traffic state to false
-      msg_traffic_state_.data = true;
+      msg_traffic_state_.state = true;
       // publish traffic state
 
       area_trafficlights_.clear();
@@ -76,7 +79,7 @@ void Detector::RGBCallback(const sensor_msgs::ImageConstPtr &RGB_img) {
              image_data[area_trafficlights_[i + 1]] < 150) {
       ROS_INFO_STREAM("Green Light!");
       // set traffic state to true
-      msg_traffic_state_.data = false;
+      msg_traffic_state_.state = false;
       // publish traffic state
     
       area_trafficlights_.clear();
@@ -142,7 +145,7 @@ void Detector::drawBoundingBoxCallback(
   // Iterate over the pixels within the bounding box region and modify the image
   // Modify the pixel color to highlight the bounding box
   // red
-  if (!msg_traffic_state_.data) {
+  if (!msg_traffic_state_.state) {
     // Draw the top and bottom horizontal lines of the bounding box
     for (int x = min_x_; x <= max_x_; ++x) {
       // Top line

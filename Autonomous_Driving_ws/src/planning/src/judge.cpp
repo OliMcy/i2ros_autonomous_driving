@@ -5,6 +5,7 @@
 #include <nav_msgs/Odometry.h>
 #include <vector>
 #include <cmath> // for output pose in while-loop
+#include "perception_msgs/TrafficState.h"
 
 double x = 0.0; // define global variant, for current pose
 double y = 0.0;
@@ -34,13 +35,13 @@ void dealPose(const nav_msgs::Odometry& cur_state){
 
 }
 
-void updateStopSignal(const std_msgs::Bool& traffic_light_state) {
+void updateStopSignal(const perception_msgs::TrafficState& traffic_light_state) {
   // if (traffic_light_state.data != stop_signal) {
   //   counter += 1;
   // }
   // if (counter >= 5) {
   //   counter = 0;
-    stop_signal = traffic_light_state.data;
+    stop_signal = traffic_light_state.state;
     // ROS_INFO_STREAM(stop_signal);
   // }
 }
