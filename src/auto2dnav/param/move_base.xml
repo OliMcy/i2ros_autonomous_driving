@@ -17,9 +17,6 @@
     <rosparam file="$(find auto2dnav)/param/static_map_params.yaml"
                 command="load"
                 ns="global_costmap/static_layer" />
-    <rosparam file="$(find auto2dnav)/param/static_map_params.yaml"
-                command="load"
-                ns="global_costmap/static_layer" />
     <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
     <param name="controller_frequency" value="15.0" />
     <remap from = "cmd_vel" to = "target_twist" />
