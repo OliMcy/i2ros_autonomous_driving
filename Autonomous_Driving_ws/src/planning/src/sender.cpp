@@ -15,9 +15,7 @@ class Sender{
     public:
     Sender(){
         serv = nh.advertiseService("set_pose",&Sender::doRequ,this);
-        // pub = nh.advertise<move_base_msgs::MoveBaseActionGoal>("/move_base/goal",1);
         pub = nh.advertise<geometry_msgs::PointStamped>("/received_waypoints",1);
-
     }
 
     bool doRequ(planning::PlanGoal::Request &req,
@@ -28,15 +26,6 @@ class Sender{
                 resp.posey = req.posey_from_file;
                 resp.quaternionz = req.quaternionz_from_file;
                 resp.quaternionw = req.quaternionw_from_file;
-
-                // posstm.goal.target_pose.pose.position.x = resp.posex;
-                // posstm.goal.target_pose.pose.position.y = resp.posey;
-                // posstm.goal.target_pose.pose.orientation.x= 0;
-                // posstm.goal.target_pose.pose.orientation.y = 0;
-                // posstm.goal.target_pose.pose.orientation.z = resp.quaternionz;
-                // posstm.goal.target_pose.pose.orientation.w = resp.quaternionw;
-                // posstm.goal.target_pose.header.frame_id = "world";
-
                 way_point.point.x = resp.posex;
                 way_point.point.y = resp.posey;
                 way_point.point.z = 0.0;
@@ -51,7 +40,6 @@ class Sender{
             return true;
     }
     private:
-    // move_base_msgs::MoveBaseActionGoal posstm;
     geometry_msgs::PointStamped way_point;
     };
 

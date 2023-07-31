@@ -75,12 +75,7 @@ public:
     tf::quaternionMsgToEigen (cur_state.pose.pose.orientation, q);
     R = q.toRotationMatrix();
     vel_ist = v;
-    // ROS_INFO_STREAM(vel_ist[0]<<vel_ist[1]<<vel_ist[2]);
-
-
-    // Rotate omega
     omega = R.transpose()*omega;
-    // ROS_INFO_STREAM(omega);
   }
 
   void onAckermannCmd(const ackermann_msgs::AckermannDriveStamped& ackermann_cmd){

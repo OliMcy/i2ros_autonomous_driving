@@ -36,14 +36,7 @@ void dealPose(const nav_msgs::Odometry& cur_state){
 }
 
 void updateStopSignal(const perception_msgs::TrafficState& traffic_light_state) {
-  // if (traffic_light_state.data != stop_signal) {
-  //   counter += 1;
-  // }
-  // if (counter >= 5) {
-  //   counter = 0;
     stop_signal = traffic_light_state.state;
-    // ROS_INFO_STREAM(stop_signal);
-  // }
 }
 
 std::vector<int> findPointIndicesWithinDistance(const std::vector<std::vector<double>>& points) {
@@ -69,62 +62,34 @@ int main(int argc, char* argv[]){
   //The matrix for global-points
   std::vector<std::vector<double>> gloPoints = 
   {
-    //1
-    // {-10.66, -60.88},
-    // {-10.06, -61.88},    /************** begin!*/
     // 1
-    {-20.0, -60.40},  /*   go straight      */
+    {-20.00, -60.40},
     // 2
-    // {-33.7, -56.16},  /* big turn right*/
-    {-33.60, -57.7},
-    {-41.10, -52.4},
+    {-33.60, -57.70},
+    {-41.10, -52.40},
     {-47.80, -41.96},
-    {-50.00, -33.6},
-    // {-2.06, -62.88},
-    // {-2.66, -62.88},    /************** begin!*/
-
-
-    // {-10.06, -63.88},
-    // {-24.62, -63.8},
-    // {-34.79,-62.39},
-    // {-43.20, -57.41},
-    // {-49.29,-49.62},
-    // {-51.72,-35.07},
-
-
-
-    // {-10.06, -62.88},
-
-    // {-20.0, -63.2},  /*   go straight      */
-    // // 2
-    // // {-33.7, -56.16},  /* big turn right*/
-    // {-33.30, -60.40},
-    // {-46.10, -49.80},
-    // {-51.60, -36.23},
-    // // {-53.20, -25.40},
+    {-50.00, -33.600},
     // 3
-    {-52.8, -14.32},
+    {-52.80, -14.32},
     // 4
     {-52.46, 39.64},
     // 5 turn
-    { -52.60, 117.5},
-    // { -52.70, 120.16},
-    { -48.20, 121.2},
+    { -52.60, 117.50},
+    { -48.20, 121.20},
     //trafic light
     {-10.26, 122.87},
     {-10.00, 122.87},
 
     // 6 turn
-    { -7.21, 123.00},
-    { -4.51, 127.00},
+    {-7.21, 123.00},
+    {-4.51, 127.00},
     //trafic light
     {-3.56, 222.60},
     {-3.56, 223.10},
 
     // 7 turn
-    { -4.1, 224.50},
-    // { -3.23, 227.98},
-    { -7.73, 228.48},
+    {-4.10, 224.50},
+    {-7.73, 228.48},
     // 8
     {-29.54, 229.56},
     // 9
@@ -133,30 +98,27 @@ int main(int argc, char* argv[]){
     {-48.98, 210.46},
     {-50.98, 199.92},
     // 5
-    { -52.20, 121.16},
+    {-52.20, 121.16},
     // 10 turn
     {-52.04, 50.51},
-    //  {-52.04, 46.51},
-     {-48.04, 46.51},
+    {-48.04, 46.51},
     // traffic light
     {-10.00, 45.32},
     {-9.56, 45.32},
 
-
     // 11 turn
     {-8.01, 44.37},
-    // {-4.41, 44.37},
     {-4.41, 40.37},
     // 12
     {-3.84, 20.33},
     // 13
-    {-3.0, -5.79},
+    {-3.00, -5.79},
     //14 traffic light
     {-2.30, -59.00},
     {-2.30, -59.50},
 
     // 15
-    {-2.46, -63.0},
+    {-2.46, -63.00},
     // 16
     {4.74, -63.90},
     {4.94, -63.90},
@@ -195,9 +157,8 @@ int main(int argc, char* argv[]){
   uint8_t current_path_begin = 0;
   uint8_t current_path_end = 0;
     
-  // stop_signal = false;
   while(ros::ok()){
-    
+    // publish the first path when the first traffic light is green
     if( path_counter==0 && stop_signal == false){
       distance_to_current_path_end = sqrt(pow(x - gloPoints[path_end_indices[0]][0],2) + pow(y - gloPoints[path_end_indices[0]][1],2));
       for(int i=0; i<= path_end_indices[0]; i++){
@@ -216,12 +177,12 @@ int main(int argc, char* argv[]){
       path_counter++;
     }
 
+    //calculate the distance to the current path end
     distance_to_current_path_end = sqrt(pow(x - gloPoints[path_end_indices[path_counter-1]][0],2) + pow(y - gloPoints[path_end_indices[path_counter-1]][1],2));
 
+    //pubilish the nexxt path only when the distance of the car to the curren path end is less than 2 and the traffic light is green 
     if (path_counter != 0 && distance_to_current_path_end < 2 && stop_signal == false){
-      
       if(path_counter >= path_end_indices.size()) break;
-
       for(int i=path_end_indices[path_counter-1]+1; i<= path_end_indices[path_counter]; i++){
         goal.request.posex_from_file = gloPoints[point_counter][0];
         goal.request.posey_from_file = gloPoints[point_counter][1];
@@ -237,10 +198,6 @@ int main(int argc, char* argv[]){
       }
       path_counter++;
     }
-
-
-    // ROS_INFO("distance to current path end is %f, current pose is (%d,%d),in path:%d.",distance_to_current_path_end,static_cast<int>(x),static_cast<int>(y),path_counter);
-
     ros::spinOnce();
   }
   return 0;
