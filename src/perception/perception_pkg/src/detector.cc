@@ -216,7 +216,7 @@ void Detector::localize() {
 }
 
 void Detector::recognize() {
-  sub_RGB_cam_ = nh_.subscribe("/unity_ros/OurCar/Sensors/RGBCameraLeft/image_raw", 1,
+  sub_RGB_cam_ = nh_.subscribe("/realsense/rgb/left_image_raw", 1,
                                &Detector::RGBCallback, this);
 }
 
@@ -228,6 +228,6 @@ void Detector::getBoundingBox() {
 
 void Detector::drawBoundingBox() {
   sub_drawBoundingBox_ =
-      nh_.subscribe("/unity_ros/OurCar/Sensors/RGBCameraLeft/image_raw", 1,
+      nh_.subscribe("/realsense/rgb/left_image_raw", 1,
                     &Detector::drawBoundingBoxCallback, this);
 }

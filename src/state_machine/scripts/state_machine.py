@@ -7,7 +7,7 @@ import rospy
 import smach
 from std_msgs.msg import Float64, Bool
 from geometry_msgs.msg import Twist
-from perception.msg import TrafficState
+from perception_msgs.msg import TrafficState
 
 class DriveState(smach.State):
     """This state publishes the target linear and angular velocities"""
@@ -102,7 +102,7 @@ class TrafficLight:
         signal_value = False
 
         # Create the subscriber to the perception/traffic_state topic
-        self.signal_sub = rospy.Subscriber("perception/traffic_state", TrafficLightState, self.signal_callback)
+        self.signal_sub = rospy.Subscriber("perception/traffic_state", TrafficState, self.signal_callback)
 
         # Create the publisher to the target topic
         self.target_v_pub = rospy.Publisher("target", TrafficState, queue_size=10)

@@ -101,7 +101,7 @@ std::vector<std::vector<double>> gloPoints = {
   
   //set the rest points
   while(ros::ok()){
-  ROS_INFO("tolerance is %f, current is (%d,%d),setted point:%d.",tol,static_cast<int>(x),static_cast<int>(y),counter);
+  // ROS_INFO("tolerance is %f, current is (%d,%d),setted point:%d.",tol,static_cast<int>(x),static_cast<int>(y),counter);
      tol = abs(x - goal.request.posex_from_file) + abs(y - goal.request.posey_from_file);
 
       if (tol < 6){
