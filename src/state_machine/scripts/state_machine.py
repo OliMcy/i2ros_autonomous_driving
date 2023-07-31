@@ -7,7 +7,7 @@ import rospy
 import smach
 from std_msgs.msg import Float64, Bool
 from geometry_msgs.msg import Twist
-
+from perception.msg import TrafficState
 
 class DriveState(smach.State):
     """This state publishes the target linear and angular velocities"""
@@ -102,10 +102,10 @@ class TrafficLight:
         signal_value = False
 
         # Create the subscriber to the perception/traffic_state topic
-        self.signal_sub = rospy.Subscriber("perception/traffic_state", Bool, self.signal_callback)
+        self.signal_sub = rospy.Subscriber("perception/traffic_state", TrafficLightState, self.signal_callback)
 
         # Create the publisher to the target topic
-        self.target_v_pub = rospy.Publisher("target", Bool, queue_size=10)
+        self.target_v_pub = rospy.Publisher("target", TrafficState, queue_size=10)
 
         # Initialize the last_signal_value and the counter
         self.last_signal_value = False
@@ -118,23 +118,23 @@ class TrafficLight:
             signal_msg: a message of type Bool
         """
         global signal_value
-        sig = Bool()
-        sig.data = signal_value
+        sig = TrafficState()
+        sig.state = signal_value
 
         # Publish the signal value to the target topic
         self.target_v_pub.publish(sig)
 
         # If the signal has the same value as the last time, increase the counter by 1
-        if self.last_signal_value == signal_msg.data:
+        if self.last_signal_value == signal_msg.state:
             self.counter += 1
         # If the signal has a different value than the last time, reset the counter and update the last_signal_value
         else:
             self.counter = 0
-            self.last_signal_value = signal_msg.data
+            self.last_signal_value = signal_msg.state
 
         # If the signal has the same value for more than 5 times, update the global variable signal_value
         if self.counter > 5:
-            signal_value = signal_msg.data
+            signal_value = signal_msg.state
             self.counter = 0
 
 

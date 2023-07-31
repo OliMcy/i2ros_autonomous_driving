@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(perception_pkg)
+project(perception_msgs)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -8,20 +8,10 @@ project(perception_pkg)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  cv_bridge
-  fla_msgs
-  fla_utils
-  octomap_msgs
-  octomap_ros
-  octomap_rviz_plugins
-  octomap_server
+  message_generation
   roscpp
   rospy
-  sensor_msgs
-  nav_msgs
   std_msgs
-  tf
-  perception_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -58,11 +48,12 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+add_message_files(
+  FILES
+  BoundingBox.msg
+  BoundingBoxes.msg
+  TrafficState.msg
+)
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -79,10 +70,10 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   fla_msgs#   octomap_msgs#   sensor_msgsnav_msgs#   std_msgs
-# )
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -115,8 +106,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES Perception_pkg
-#  CATKIN_DEPENDS cv_bridge fla_msgs fla_utils octomap octomap_msgs octomap_ros octomap_rviz_plugins octomap_server roscpp rospy sensor_msgsnav_msgs std_msgs tf
+#  LIBRARIES perception_msgs
+ CATKIN_DEPENDS std_msgs message_runtime
 #  DEPENDS system_lib
 )
 
@@ -127,13 +118,13 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-  include
+# include
   ${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/Perception_pkg.cpp
+#   src/${PROJECT_NAME}/perception_msgs.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -144,14 +135,8 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/Perception_pkg_node.cpp)
+# add_executable(${PROJECT_NAME}_node src/perception_msgs_node.cpp)
 
-add_executable(trafficlights_detect_node src/trafficlights_detect_node.cpp src/detector.cc)
-target_link_libraries(trafficlights_detect_node ${catkin_LIBRARIES})
-include_directories(
-  include
-  ${catkin_INCLUDE_DIRS}
-)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -214,7 +199,7 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_Perception_pkg.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_perception_msgs.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
