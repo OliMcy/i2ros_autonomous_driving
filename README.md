@@ -24,7 +24,7 @@ sudo apt-get install ros-noetic-ackermann-msgs
 
 #  launch command
 ```shell
-roslaunch simulation simulation.launch 
+roslaunch simulation yolov5_simulation.launch 
 ```
 
 # Getting Started
