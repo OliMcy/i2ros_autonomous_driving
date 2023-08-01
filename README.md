@@ -5,7 +5,7 @@ Run following command to install required packages.
 Perception:
 ```shell
 sudo apt install ros-noetic-octomap-rviz-plugins ros-noetic-octomap-server
-pip install -r Autonomous_Driving_ws/src/perception/yolov5_ros/src/yolov5/requirements.txt
+pip install -r Autonomous_Driving_ws/src/perception/yolov5/src/yolov5/requirements.txt
 ```
 
 Control:
