@@ -83,7 +83,6 @@
   <include file="$(find auto2dnav)/launch/move_base.launch">
   </include>
 
-
   <node pkg="controller_pkg" type="controller_node" name="controller_node" output="screen"/>
 
   <!-- <node pkg="planning" type="sender" name="sender" output="screen"/>
