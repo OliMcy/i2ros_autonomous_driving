@@ -75,8 +75,10 @@
       <arg name="name" value="OurCar" />
   </include>
   
-  <include file="$(find yolov5_ros)/launch/yolov5.launch">
+  <include file="$(find yolov5)/launch/yolov5.launch">
   </include>
+
+  <node pkg="perception_pkg" type="trafficlights_detect_node" name="trafficlights_detect_node" output="screen"/>
 
   <node pkg="rviz" type="rviz" name="rviz" args="-d $(find simulation)/rviz/AutonomousCar.rviz" />
 
