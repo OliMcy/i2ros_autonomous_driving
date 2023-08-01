@@ -9,7 +9,7 @@
 		<param name="frame_id" type="string" value="world" />
 		
 <!-- maximum range to integrate (speedup!) -->
-		<param name="sensor_model/max_range" value="30.0" />
+		<param name="sensor_model/max_range" value="25.0" />
 		
 <!-- data source to integrate (PointCloud2) -->
 		<remap from="cloud_in" to="/unity_ros/OurCar/Sensors/DepthCamera/pointcloud" /> 
@@ -20,7 +20,7 @@
 
 <!-- min and max height of occupied cells to be consider in the final map -->
     	<param name="occupancy_min_z" value="-1" />
-		<param name="occupancy_max_z" type="double" value="2.0" /> 
+		<param name="occupancy_max_z" type="double" value="1.0" /> 
 
 		<!-- when building map, set to false to speed up!!! -->
 		<param name = "latch" value = "false" /> 
