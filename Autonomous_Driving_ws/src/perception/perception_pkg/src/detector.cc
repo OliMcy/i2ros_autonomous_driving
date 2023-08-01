@@ -27,7 +27,7 @@ void Detector::semeticCallback(const sensor_msgs::ImageConstPtr &sem_img) {
    * Extract the coordinates of the trafflic light in semantic camera.
    * 
    * Input:
-   * Image topic.
+   * Image msg.
    * 
    * Output:
    * The index of the second channel of the pixel in data. 
@@ -58,11 +58,26 @@ void Detector::semeticCallback(const sensor_msgs::ImageConstPtr &sem_img) {
 }
 
 void Detector::RGBCallback(const sensor_msgs::ImageConstPtr &RGB_img) {
+    /**
+   * Description:
+   * Scan the traffic lights area to analyse the color of lights
+   * 
+   * Input:
+   * Image msg.
+   * 
+   * Output:
+   * The state of the traffic light, true = red, false = green
+   */
+
   const std::vector<uint8_t> &image_data = RGB_img->data;
 
   // publish traffic stateimage_data
   for (size_t i = 0; i < area_trafficlights_.size(); i++) {
-    // red light
+    /* 
+    * check if the light in the area red or green
+    * if the light is red, print a message and publish a msg to stop the car
+    * if the light is green, publish a msg to move the car
+    */
     if (image_data[area_trafficlights_[i] - 1] > 200 &&
         image_data[area_trafficlights_[i]] < 100 &&
         image_data[area_trafficlights_[i + 1]] < 100) {
@@ -92,6 +107,17 @@ void Detector::RGBCallback(const sensor_msgs::ImageConstPtr &RGB_img) {
 }
 
 void Detector::getBoundingBoxCallback(const sensor_msgs::Image::ConstPtr &msg) {
+      /**
+   * Description:
+   * From semantic image data get a bounding box area of this image
+   * 
+   * Input:
+   * Image msg.
+   *
+   * Output:
+   * The X and Y axis of the bounding box
+   */
+
   const std::vector<uint8_t> &image_data = msg->data;
   int image_width = msg->width;
   int image_height = msg->height;
@@ -132,6 +158,17 @@ void Detector::getBoundingBoxCallback(const sensor_msgs::Image::ConstPtr &msg) {
 
 void Detector::drawBoundingBoxCallback(
     const sensor_msgs::Image::ConstPtr &original_msg) {
+   /**
+   * Description:
+   * Draw the bounding box on RGB image
+   * 
+   * Input:
+   * Image msg.
+   * 
+   * Output:
+   * Image msg.
+   */
+
   // Create a new image message for the modified image
   sensor_msgs::Image modified_msg;
   modified_msg.header = original_msg->header;
