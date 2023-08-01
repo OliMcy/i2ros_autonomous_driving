@@ -2,8 +2,29 @@
  
 Run following command to install required packages.
 
+Perception:
 ```shell
 sudo apt install ros-noetic-octomap-rviz-plugins ros-noetic-octomap-server
+pip install -r Autonomous_Driving_ws/src/perception/yolov5/src/yolov5/requirements.txt
+```
+
+Control:
+```shell
+sudo apt install ros-noetic-octomap-rviz-plugins ros-noetic-octomap-server
+sudo apt install ros-noetic-pid ros-noetic-robot-localization
+sudo apt install ros-noetic-smach-ros
+```
+
+Planning
+```shell
+sudo apt-get install ros-noetic-navigation
+sudo apt-get install ros-noetic-teb-local-planner
+sudo apt-get install ros-noetic-ackermann-msgs
+```
+
+#  launch command
+```shell
+roslaunch simulation yolov5_simulation.launch 
 ```
 
 # Getting Started

@@ -25,10 +25,15 @@ find_package(catkin REQUIRED COMPONENTS
         cv_bridge
         message_generation
         mav_msgs
+        eigen_conversions
+        tf_conversions
 	)
 
 catkin_package(CATKIN_DEPENDS
         mav_msgs
+        tf
+        eigen_conversions
+        tf_conversions
 	)
 
 include(ExternalProject)

@@ -1,0 +1,13 @@
+local_costmap:
+  plugins: 
+      - {name: static_layer,       type: "costmap_2d::StaticLayer"}
+      - {name: inflation_layer,         type: "costmap_2d::InflationLayer"}
+
+  global_frame: world
+  robot_base_frame: base_link
+  update_frequency: 5.0
+  publish_frequency: 2.0
+  rolling_window: true
+  width: 10.0
+  height: 10.0
+  resolution: 1

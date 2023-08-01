@@ -1,0 +1,19 @@
+<launch>
+   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find auto2dnav)/param/costmap_common_params.yaml" command="load" ns="global_costmap" /> 
+    <rosparam file="$(find auto2dnav)/param/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find auto2dnav)/param/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find auto2dnav)/param/global_costmap_params.yaml" command="load" /> 
+    <rosparam file="$(find auto2dnav)/param/base_local_planner_params.yaml" command="load" />
+    <rosparam file="$(find auto2dnav)/param/global_planner_params.yaml" command="load" />
+    <rosparam file="$(find auto2dnav)/param/move_base_params.yaml" command="load" />
+    <rosparam file="$(find auto2dnav)/param/static_map_params.yaml"
+                command="load"
+                ns="global_costmap/static_layer" />
+   <rosparam file="$(find auto2dnav)/param/static_map_params.yaml"
+                command="load"
+                ns="local_costmap/static_layer" />
+    <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
+    <param name="controller_frequency" value="10.0" />
+ </node>
+</launch> 

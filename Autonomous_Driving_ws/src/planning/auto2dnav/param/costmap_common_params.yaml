@@ -1,0 +1,13 @@
+obstacle_range: 30
+raytrace_range: 30
+
+observation_sources: point_cloud_sensor 
+
+point_cloud_sensor: {sensor_frame: depth_camera, data_type: PointCloud2, topic: /unity_ros/OurCar/Sensors/DepthCamera/pointcloud, marking: true, clearing: true}
+
+map_type: costmap
+
+inflater_layer:
+  enabled: true
+  inflation_radius: 2
+  cost_scaling_factor: 3.0

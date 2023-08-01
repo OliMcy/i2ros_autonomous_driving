@@ -19,6 +19,8 @@
 #include <stdlib.h>
 #include <chrono>
 #include <random>
+#include <eigen3/Eigen/Dense>
+#include <eigen_conversions/eigen_msg.h>
 
 class StateEstimateCorruptorNode {
  public:
@@ -31,6 +33,7 @@ class StateEstimateCorruptorNode {
 		corrupted_pose_pub     = nh.advertise<geometry_msgs::PoseStamped>("/pose_est", 1);
 		corrupted_velocity_pub = nh.advertise<geometry_msgs::TwistStamped>("/twist_est", 1);
 		corrupted_state_pub    = nh.advertise<nav_msgs::Odometry>("/current_state_est", 1);
+		transformed_odom_pub = nh.advertise<nav_msgs::Odometry>("odom", 1);
 
 		ros::NodeHandle pnh("~");
 		fla_utils::SafeGetParam(pnh, "pos_white_sig", pos_white_sigma_);
@@ -115,6 +118,16 @@ class StateEstimateCorruptorNode {
 
 		PublishCorruptedTwist(twist);
 		PublishCorruptedState(twist);
+
+		// geometry_msgs::TwistStamped base_link_twist;
+		// base_link_twist.twist.linear.x = twist.twist.linear.y;
+		// base_link_twist.twist.linear.y = -twist.twist.linear.x;
+		// base_link_twist.twist.linear.z = twist.twist.linear.z;
+
+		// PublishCorruptedTwist(base_link_twist);
+		// PublishCorruptedState(base_link_twist);
+
+		
 	}
 
 	void PublishCorruptedPose(geometry_msgs::PoseStamped const& corrupt_pose) {
@@ -135,6 +148,53 @@ class StateEstimateCorruptorNode {
         corrupted_state.pose.pose = pose_corrupted_.pose;
 
         corrupted_state_pub.publish(corrupted_state);
+
+		// publish odometry massage of base_link frame, tranformed from odometry of body
+		nav_msgs::Odometry tranformed_odom;
+		Eigen::Vector3d v;  
+		Eigen::Vector3d v_odom; 
+		Eigen::Vector3d omega;
+		Eigen::Vector3d omega_odom;
+		
+		tranformed_odom.header.stamp = corrupted_state.header.stamp;
+		tranformed_odom.header.frame_id = "world";
+		tranformed_odom.child_frame_id = "base_link";
+
+		Eigen::Quaterniond q;
+		Eigen::Matrix3d R;
+		tf::quaternionMsgToEigen (corrupted_state.pose.pose.orientation, q);
+		R = q.toRotationMatrix();
+		Eigen::Matrix3d mat;
+		mat << 0.0, -1.0, 0.0,
+		    1.0, 0.0, 0.0,
+		    0.0, 0.0, 1.0;
+		Eigen::Matrix3d rot_mat;
+		rot_mat = mat*R;
+		Eigen::Quaterniond rot_q(rot_mat);
+
+		tranformed_odom.pose.pose.orientation.x = rot_q.x();
+		tranformed_odom.pose.pose.orientation.y = rot_q.y();
+		tranformed_odom.pose.pose.orientation.z = rot_q.z();
+		tranformed_odom.pose.pose.orientation.w = rot_q.w();
+
+		v << corrupted_state.twist.twist.linear.x,corrupted_state.twist.twist.linear.y,corrupted_state.twist.twist.linear.z;
+		omega << corrupted_state.twist.twist.angular.x,corrupted_state.twist.twist.angular.y,corrupted_state.twist.twist.angular.z;
+
+		Eigen::Quaterniond q2;
+		tf::quaternionMsgToEigen (tranformed_odom.pose.pose.orientation, q2);
+		R = q2.toRotationMatrix();
+		v_odom = R.transpose()*v;
+		omega_odom = R.transpose()*omega;
+
+		tranformed_odom.twist.twist.linear.x = v_odom[0];
+		tranformed_odom.twist.twist.linear.y = v_odom[1];
+		tranformed_odom.twist.twist.linear.z = v_odom[2];
+		tranformed_odom.twist.twist.angular.x = omega_odom[0];
+		tranformed_odom.twist.twist.angular.y = omega_odom[1];
+		tranformed_odom.twist.twist.angular.z = -omega_odom[2];
+        tranformed_odom.pose.pose.position = corrupted_state.pose.pose.position;
+
+		transformed_odom_pub.publish(tranformed_odom);
 	}
 
 	void PublishCorruptedTwist(geometry_msgs::TwistStamped const& twist) {
@@ -174,6 +234,7 @@ class StateEstimateCorruptorNode {
 	ros::Publisher corrupted_pose_pub;
 	ros::Publisher corrupted_velocity_pub;
 	ros::Publisher corrupted_state_pub;
+	ros::Publisher transformed_odom_pub;
 
 	std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
 	tf2_ros::Buffer tf_buffer_;
@@ -198,6 +259,7 @@ int main(int argc, char* argv[]) {
 	ros::init(argc, argv, "StateEstimateCorruptorNode");
 
 	StateEstimateCorruptorNode state_estimate_corruptor_node;
+	// ros::Rate rate(5);
 
 	ros::spin();
 
