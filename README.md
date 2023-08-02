@@ -98,7 +98,6 @@ The traffic rules will be followed correctly.
 
 ## Planning
 - planning(Route 1): node `waypoint_sending_server` sends waypoints for waypoint global planner; node `global_path_planning_client` considers traffic lights and car position and decides when and which waypoints will be sent.
-- planning(Route 2):
 - auto2dnav: congiuration of move_base package
 - move_base: primary pakage used for planning and navigation Tasks
 
