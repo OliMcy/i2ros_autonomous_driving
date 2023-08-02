@@ -18,12 +18,21 @@ Video: [Route 2](https://drive.google.com/file/d/13j84ydKm6jeO1DN4xlv6FYHlcqDo4q
 |    Route 1  | [waypoint-global-planner](https://github.com/gkouros/waypoint-global-planner)  |   [teb_local_planner](http://wiki.ros.org/teb_local_planner)   | Ackermann controller |
 |   Route 2  | [move_base](http://wiki.ros.org/move_base) build-in global_planner   | [move_base](http://wiki.ros.org/move_base) build-in base_local_planner| PID controller |
 
-Rosgraph
+## Rosgraph
 - Route1
 ![Route1](figure/rosgraph1.png)
 
 - Route2
 ![Route2](figure/rosgraph2.png)
+
+## Tasks
+- [x] Successfully working perception pipeline 
+- [x] Successfully working path planning
+- [x] Successfully working trajectory planning 
+- [x] Successfully avoiding other cars
+- [x] Successfully stopping/driving at street lights 
+- [x] Time to complete the mission 
+
 
 # Prerequisites
 > Please git clone this repo according to the first step in **Getting Started**
