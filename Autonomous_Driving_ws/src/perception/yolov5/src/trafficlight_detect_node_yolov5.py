@@ -11,9 +11,7 @@ import os
 import sys
 from rostopic import get_topic_type
 
-from sensor_msgs.msg import Image, CompressedImage
-# from detection_msgs.msg import BoundingBox, BoundingBoxes
-# from std_msgs.msg import Bool
+from sensor_msgs.msg import Image
 from perception_msgs.msg import BoundingBox, BoundingBoxes, TrafficState
 
 
@@ -98,18 +96,9 @@ class Yolov5Detector:
         # Warmup model by running inference once
         self.model.warmup()         
         
-        # Initialize subscriber to Image/CompressedImage topic
+        # Initialize subscriber to Image topic
         input_image_type, input_image_topic, _ = get_topic_type(rospy.get_param("~input_image_topic"), blocking = True)
-        self.compressed_input = input_image_type == "sensor_msgs/CompressedImage"
-
-        if self.compressed_input:
-            self.image_sub = rospy.Subscriber(
-                input_image_topic, CompressedImage, self.callback, queue_size=1
-            )
-        else:
-            self.image_sub = rospy.Subscriber(
-                input_image_topic, Image, self.callback, queue_size=1
-            )
+        self.image_sub = rospy.Subscriber(input_image_topic, Image, self.callback, queue_size=1)
 
         # Initialize prediction publisher
         self.pred_pub = rospy.Publisher(
@@ -144,17 +133,8 @@ class Yolov5Detector:
         3. /perception/boundingbox_image(sensor_msgs/Image):
             contains the image with bounding boxes
         """
-        # print(data.header)
-        if self.compressed_input:
-            im = self.bridge.compressed_imgmsg_to_cv2(data, desired_encoding="bgr8")
-        else:
-            im = self.bridge.imgmsg_to_cv2(data, desired_encoding="bgr8")
-        
+        im = self.bridge.imgmsg_to_cv2(data, desired_encoding="bgr8")
         im, im0 = self.preprocess(im)
-        
-        # print(im.shape)
-        # print(img0.shape)
-        # print(img.shape)
 
         # Run inference
         im = torch.from_numpy(im).to(self.device) 
