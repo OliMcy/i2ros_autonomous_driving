@@ -97,11 +97,11 @@ The traffic rules will be followed correctly.
 - OctoMap: a package which can get the occupancy grids and map from 3D point cloud data.
 
 ## Planning
-- planning(Route 1): node `waypoint_sending_server` sends waypoints to topic `received_waypoints`, which is subscribed by `waypoint-global-planner`; node `global_path_planning_client` considers traffic light and car position and decides when and which waypoints will be sent.
+- planning(Route 1): node `waypoint_sending_server` sends waypoints for waypoint global planner; node `global_path_planning_client` considers traffic lights and car position and decides when and which waypoints will be sent.
 - planning(Route 2):
-- auto2dnav: congiuration of `move_base` package
+- auto2dnav: congiuration of move_base package
 - move_base: primary pakage used for planning and navigation Tasks
 
 ## Control
-- auto2dnav: node `cmd_vel_to_ackermann_drive` calculate steering angle value and convert the orignal `cmd_vel` to `ackermann_cmd`
-- cnotroller_pkg(Route 1): node `controller_node` calculates the final `car_commands`  
+- auto2dnav: node `cmd_vel_to_ackermann_drive` converts the orignal desired linear and angular velocity to desired linear vlocity and steering angle
+- cnotroller_pkg(Route 1): node `controller_node` calculates the final command values  
