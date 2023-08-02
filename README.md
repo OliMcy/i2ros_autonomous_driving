@@ -10,6 +10,7 @@ Video: [Route 2](https://drive.google.com/file/d/13j84ydKm6jeO1DN4xlv6FYHlcqDo4q
 |   Route 2  | [move_base](http://wiki.ros.org/move_base) build-in global_planner   | [move_base](http://wiki.ros.org/move_base) build-in base_local_planner| PID controller |
 
 # Prerequisites
+> Please git clone this repo according to the first step in **Getting Started**
 
 - Run the sh file to install all packages
 
