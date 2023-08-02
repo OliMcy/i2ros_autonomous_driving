@@ -25,7 +25,7 @@ sudo apt-get install ros-noetic-ackermann-msgs
 git clone --single-branch -b goal_point git@gitlab.lrz.de:i2ros_g13/i2ros_g13_autonomous_driving.git --depth 1
 
 ```
-2. Copy the src-folder to your repository and build it
+2. Build and source it.
 3. Download the Unity Environment: https://syncandshare.lrz.de/getlink/fiEg9ocZ6Pc5iuEa4QqN1b/
 4. Unzip the Unity file and copy the files to .../devel/lib/simulation/
 5. run the following command to launch.
