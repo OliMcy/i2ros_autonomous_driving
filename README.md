@@ -12,6 +12,7 @@ chmod +x requirements.sh
 ```
 
 - Or Run following command to install required packages.
+
 Perception:
 ```shell
 sudo apt install ros-noetic-octomap-rviz-plugins ros-noetic-octomap-server
