@@ -1,13 +1,42 @@
 # Result Presentation
 
 Video: [Route 1](https://drive.google.com/file/d/1q7wo_83JWUoRK_NPq6S9dEWp2XwJMmIj/view?usp=drive_link)
+[Route_1_acc.wmv](/uploads/8c18a7bc78ccc100144c4592ae8106f6/Route_1_acc.wmv)
+
+<figure class="video_container">
+  <iframe src="https://drive.google.com/file/d/1q7wo_83JWUoRK_NPq6S9dEWp2XwJMmIj/preview" frameborder="0" allowfullscreen="true"> </iframe>
+</figure>
 
 Video: [Route 2](https://drive.google.com/file/d/13j84ydKm6jeO1DN4xlv6FYHlcqDo4qkU/view?usp=drive_link)
+
+<figure class="video_container">
+  <iframe src="https://drive.google.com/file/d/13j84ydKm6jeO1DN4xlv6FYHlcqDo4qkU/preview" frameborder="0" allowfullscreen="true"> </iframe>
+</figure>
 
 |                 | global planner | local planner | controller |
 | --------------- | --------------- | --------------- | --------------- |
 |    Route 1  | [waypoint-global-planner](https://github.com/gkouros/waypoint-global-planner)  |   [teb_local_planner](http://wiki.ros.org/teb_local_planner)   | Ackermann controller |
 |   Route 2  | [move_base](http://wiki.ros.org/move_base) build-in global_planner   | [move_base](http://wiki.ros.org/move_base) build-in base_local_planner| PID controller |
+
+## Rosgraph
+- Route1
+![Route1](figure/rosgraph1.png)
+
+- Route2
+![Route2](figure/rosgraph2.png)
+
+## Tasks
+- [x] Successfully working perception pipeline 
+- [x] Successfully working path planning
+- [x] Successfully working trajectory planning 
+- [x] Successfully avoiding other cars
+- [x] Successfully stopping/driving at street lights 
+- [x] Time to complete the mission: 212s
+- [x] Solving the problem without using semantic camera: YOLOv5
+- [x] New msg: perception_msgs/Boundingboxes.msg, perception_msgs/Boundingbox.msg, perception_msgs/Trafficstate.msg
+- [x] New Service: planning/srv/PlanGoal.srv
+
+
 
 # Prerequisites
 > Please git clone this repo according to the first step in **Getting Started**
