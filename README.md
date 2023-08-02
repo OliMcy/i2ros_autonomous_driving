@@ -88,7 +88,7 @@ roslaunch simulation yolov5_simulation.launch
 The car will start driving along the generated global and local path.
 The traffic rules will be followed correctly.
 
-# Modules discription
+# Modules description
 ![Route1](figure/Modules.png)
 
 ## Perception
