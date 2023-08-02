@@ -3,7 +3,15 @@
 Video: [Route 1](https://drive.google.com/file/d/1q7wo_83JWUoRK_NPq6S9dEWp2XwJMmIj/view?usp=drive_link)
 [Route_1_acc.wmv](/uploads/8c18a7bc78ccc100144c4592ae8106f6/Route_1_acc.wmv)
 
+<figure class="video_container">
+  <iframe src="https://drive.google.com/file/d/1q7wo_83JWUoRK_NPq6S9dEWp2XwJMmIj/preview" frameborder="0" allowfullscreen="true"> </iframe>
+</figure>
+
 Video: [Route 2](https://drive.google.com/file/d/13j84ydKm6jeO1DN4xlv6FYHlcqDo4qkU/view?usp=drive_link)
+
+<figure class="video_container">
+  <iframe src="https://drive.google.com/file/d/13j84ydKm6jeO1DN4xlv6FYHlcqDo4qkU/preview" frameborder="0" allowfullscreen="true"> </iframe>
+</figure>
 
 |                 | global planner | local planner | controller |
 | --------------- | --------------- | --------------- | --------------- |
