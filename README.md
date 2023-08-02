@@ -38,6 +38,7 @@ git clone git@gitlab.lrz.de:i2ros_g13/i2ros_g13_autonomous_driving.git --depth 1
 4. Unzip the Unity file and copy the files to .../devel/lib/simulation/
 5. run the following command to launch.
 ```shell
+source devel/setup.bash
 roslaunch simulation yolov5_simulation.launch 
 ```
 
