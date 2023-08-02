@@ -31,7 +31,11 @@ Video: [Route 2](https://drive.google.com/file/d/13j84ydKm6jeO1DN4xlv6FYHlcqDo4q
 - [x] Successfully working trajectory planning 
 - [x] Successfully avoiding other cars
 - [x] Successfully stopping/driving at street lights 
-- [x] Time to complete the mission 
+- [x] Time to complete the mission: 212s
+- [x] Solving the problem without using semantic camera: YOLOv5
+- [x] New msg: perception_msgs/Boundingboxes.msg, perception_msgs/Boundingbox.msg, perception_msgs/Trafficstate.msg
+- [x] New Service: planning/srv/PlanGoal.srv
+
 
 
 # Prerequisites
