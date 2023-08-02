@@ -95,3 +95,13 @@ The traffic rules will be followed correctly.
 - perception_pkg: including a node ```trafficlights_detect_node```, which extract the area of traffic light from semantic image and then recognize the color of the traffic light in RGB image. It gives the controller the state of traffic light to stop the car of let it move again. Additionally a bounding box in color red or green is also drawn and outputed by this node.
 - depth_image_proc: a package to convert the depth image data to 3D point cloud data.
 - OctoMap: a package which can get the occupancy grids and map from 3D point cloud data.
+
+## Planning
+- planning(Route 1): node `waypoint_sending_server` sends waypoints to topic `received_waypoints`, which is subscribed by `waypoint-global-planner`; node `global_path_planning_client` considers traffic light and car position and decides when and which waypoints will be sent.
+- planning(Route 2):
+- auto2dnav: congiuration of `move_base` package
+- move_base: primary pakage used for planning and navigation Tasks
+
+## Control
+- auto2dnav: node `cmd_vel_to_ackermann_drive` calculate steering angle value and convert the orignal `cmd_vel` to `ackermann_cmd`
+- cnotroller_pkg(Route 1): node `controller_node` calculates the final `car_commands`  
