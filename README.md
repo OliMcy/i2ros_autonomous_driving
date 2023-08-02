@@ -103,5 +103,5 @@ The traffic rules will be followed correctly.
 - move_base: primary pakage used for planning and navigation Tasks
 
 ## Control
-- auto2dnav: node `cmd_vel_to_ackermann_drive` converts the orignal desired linear and angular velocity to desired linear vlocity and steering angle
+- auto2dnav: node `cmd_vel_to_ackermann_drive` converts the orignal desired linear and angular velocity to desired linear velocity and steering angle
 - cnotroller_pkg(Route 1): node `controller_node` calculates the final command values  
